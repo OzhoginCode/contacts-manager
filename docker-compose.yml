@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+
+  js-app:
+    build: ./js-app
+    ports:
+      - "80:80"
+    container_name: js-app
+    restart: always
+
+  # py-app:
+  #   build: ./py-app
+  #   container_name: py-app
+  #   restart: always
+  #   network_mode: host
