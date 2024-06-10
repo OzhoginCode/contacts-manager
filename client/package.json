@@ -1,0 +1,22 @@
+{
+  "name": "password-manager-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/app/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "build": "webpack"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.37.1",
+    "regenerator-runtime": "^0.14.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.4.0",
+    "html-webpack-plugin": "^5.6.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

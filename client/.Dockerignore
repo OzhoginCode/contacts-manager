@@ -1,0 +1,14 @@
+__fixtures__
+__tests__
+jest.config.js
+eslint.config.js
+node_modules
+Dockerfile
+Makefile
+README.md
+dist
+.git
+.gitignore
+.github
+.dockerignore
+.DS_Store
