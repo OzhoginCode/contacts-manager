@@ -1,11 +1,9 @@
-# All services
-
 start-apps:
 	docker-compose build
 	docker-compose up 
 
 restart-apps:
-	docker rm js-app py-app
-	docker rmi docker-project-py-app docker-project-js-app
+	docker rm client server
+	docker rmi client server
 	docker-compose build
 	docker-compose up
