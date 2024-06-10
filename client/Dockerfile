@@ -1,19 +1,21 @@
-FROM ubuntu:22.04
+FROM node:20-alpine as build
 
-WORKDIR /usr/share/nginx/html
-
-RUN apt-get update
-RUN apt-get install nginx -y
-RUN apt-get install nodejs -y
-RUN apt-get install npm -y
+WORKDIR /app
 
 COPY package.json package-lock.json ./
+
 RUN npm ci
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY app/index.html .
 COPY . .
+
+RUN npm run build
+
+FROM nginx:1.27.0-alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-CMD [ "nginx", "-g", "daemon off;" ]
+CMD ["nginx", "-g", "daemon off;"]

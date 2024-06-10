@@ -1,3 +1,4 @@
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url';
 
@@ -10,5 +11,12 @@ export default  {
         path: resolve(__dirname, 'dist'),
         filename: 'index_bundle.js'
     },
-    mode: 'none'
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: resolve(__dirname, '/app/index.html'),
+        minify: true,
+      }),
+    ],
+    mode: 'none',
 } 

@@ -12,17 +12,15 @@ build:
 
 re-start:
 	rm -r dist/
-	docker stop js
-	docker rmi js-app:02
+	docker stop client
+	docker rmi client
 	npm run build
-	docker build -t js-app:02 . 
-	docker run -p 80:80 --name js -d --rm js-app:02
+	docker build -t client .
+	docker run -p 80:80 --name client -d --rm client
 
 start:
-	npm run build
-	docker build -t js-app:02 . 
-	docker run -p 80:80 --name js -d --rm js-app:02
+	docker build -t client .
+	docker run -p 80:80 --name client -d --rm client
 
 test:
 	NODE_OPTIONS=--experimental-vm-modules npx jest
-	
