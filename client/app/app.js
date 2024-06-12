@@ -2,15 +2,15 @@ const renderRecords = (state, elements) => {
   elements.namesContainer.innerHTML = '';
   const ulForNames = document.createElement('ul');
 
-  state.names.forEach(({ name, phone }) => {
+  state.names.forEach(({ source, login, password }) => {
     const newRecord = document.createElement('li');
-    newRecord.textContent = `${name}  .  .  .  .  .  .  .  .  ${phone}`;
+    newRecord.textContent = `${source}  .  .  ${login}  .  .  ${password}`;
     ulForNames.append(newRecord);
   });
   elements.namesContainer.append(ulForNames);
 };
 
-export default (testData) => {
+export default () => {
   const state = {
     names: [],
   };
@@ -18,14 +18,15 @@ export default (testData) => {
     namesContainer: document.querySelector('[data-container="names"]'),
   };
   const newRecForm = document.querySelector('[data-container="new-rec-form"]');
-  const huy = testData;
+  
   const submitHandler = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const name = formData.get('name');
-    const phone = formData.get('phone');
-    const list = { name: name.trim(), phone: phone.trim() };
+    const source = formData.get('source');
+    const login = formData.get('login');
+    const password = formData.get('password');
+    const list = { source: source.trim(), login: login.trim(), password: password.trim() };
     state.names.push(list);
     form.reset();
     form.querySelector('input').focus();
