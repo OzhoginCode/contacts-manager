@@ -10,7 +10,7 @@ const getNewId = () => {
   return id;
 };
 
-accountsRouter.get('/', async (req, res) => {
+accountsRouter.get('/', (req, res) => {
   try {
     res.status(200).send(`${JSON.stringify(accounts, null, 2)}`);
   } catch (e) {
@@ -18,7 +18,7 @@ accountsRouter.get('/', async (req, res) => {
   }
 });
 
-accountsRouter.post('/', async (req, res) => {
+accountsRouter.post('/', (req, res) => {
   try {
     const id = getNewId();
     const newAccount = {
@@ -33,7 +33,7 @@ accountsRouter.post('/', async (req, res) => {
   }
 });
 
-accountsRouter.get('/:id', async (req, res) => {
+accountsRouter.get('/:id', (req, res) => {
   const { id } = req.params;
   const account = accounts.find((account) => account.id === parseInt(id));
   const accountInfo = JSON.stringify(account, null, 2);
@@ -45,7 +45,7 @@ accountsRouter.get('/:id', async (req, res) => {
   }
 });
 
-accountsRouter.put('/:id', async (req, res) => {
+accountsRouter.put('/:id', (req, res) => {
   try {
     const { id } = req.params;
     const newData = req.body;
@@ -64,7 +64,7 @@ accountsRouter.put('/:id', async (req, res) => {
   }
 });
 
-accountsRouter.delete('/:id', async (req, res) => {
+accountsRouter.delete('/:id', (req, res) => {
   try {
     const { id } = req.params;
     const account = accounts.find((account) => account.id === parseInt(id));
