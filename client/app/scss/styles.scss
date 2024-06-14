@@ -1,0 +1,220 @@
+@import "bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  /* gray colors */
+  --gray-100: 243, 244, 246;
+  --gray-800: 31, 41, 55;
+  --gray-400: 156, 163, 175;
+
+  /* font */
+  --font-family: "Ubuntu Mono", monospace;
+  --font-size: 1rem;
+  --font-size-sm: 0.8rem;
+  --font-color: 243, 244, 246; /* gray-200 */
+  --font-regular: 400;
+  --font-bold: 700;
+
+  /* background */
+  --bg-main-rgb: 3, 7, 18; /* gray-950 */
+  --bg-section-rgb: 31, 41, 55; /* gray-800 */
+
+  /* others */
+  --padding: 1rem;
+  --margin: 1rem;
+  --border-radius: 0.5rem;
+  --box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 11px -3px;
+  --box-shadow-focus: rgba(255, 255, 255, 0.75) 0px 0px 11px -3px;
+
+  /* buttons */
+  --bg-button-start-rgb: 75, 85, 99; /* gray-600 */
+  --bg-button-end-rgb: 31, 41, 55; /* gray-700 */
+  --bg-button: linear-gradient(
+    315deg,
+    rgb(var(--bg-button-start-rgb)),
+    rgb(var(--bg-button-end-rgb))
+  );
+  --bg-button-hover: linear-gradient(
+    0deg,
+    rgb(var(--bg-button-end-rgb)),
+    rgb(var(--bg-button-start-rgb))
+  );
+  --bg-button-active: linear-gradient(
+    315deg,
+    rgb(var(--bg-button-end-rgb)),
+    rgb(var(--bg-button-start-rgb))
+  );
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-regular);
+
+  background-color: rgb(var(--bg-main-rgb));
+
+  color: rgb(var(--font-color));
+  height: 100vh;
+}
+
+.container .header a {
+  color: rgb(var(--font-color));
+}
+
+.container .header a.active {
+  color: rgb(var(--font-color));
+}
+
+header {
+  margin-top: var(--margin);
+  margin-bottom: var(--margin);
+  color: rgb(var(--font-color));
+}
+
+.navbar,
+.navbar .container-fluid {
+  padding: 0;
+}
+
+.navbar-toggler {
+  color: red;
+}
+
+.section {
+  margin-bottom: var(--margin);
+  padding: var(--padding);
+  border: 0;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+
+  color: rgb(var(--font-color));
+  background-color: rgb(var(--bg-section-rgb));
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.mobile-menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5rem;
+
+  border: 0;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  background: var(--bg-button);
+
+  transition: var(--transition);
+}
+
+.mobile-menu-icon:hover {
+  background: var(--bg-button-hover);
+}
+
+.mobile-menu-icon:active {
+  background: var(--bg-button-active);
+}
+
+.mobile-menu-icon:focus {
+  box-shadow: var(--box-shadow-focus);
+}
+
+.main {
+  margin-bottom: var(--margin);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.hero {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hero section:last-child {
+  max-width: min-content;
+}
+
+.new-item-section {
+  margin-bottom: var(--margin);
+}
+
+.new-item-button {
+  border: 0;
+  background: transparent;
+  color: rgb(var(--font-color));
+}
+
+.modal-header,
+.modal-footer {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.passwords-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.password-item {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.password-item-buttons {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.password-item-buttons .button-edit {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.password-item-buttons .button-delete {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.item-name {
+  color: rgb(var(--gray-400));
+  font-size: var(--font-size-sm);
+}
+
+footer {
+  margin-bottom: var(--margin);
+}
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1280px) {
+}
