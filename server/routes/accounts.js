@@ -10,47 +10,76 @@ const getNewId = () => {
   return id;
 };
 
-accountsRouter.get('/', (req, res) => {
+const removeUserId = ({ userId, ...account }) => account;
+
+const requiredAuth = (req, res, next) => {
+  const { userId } = req.session;
+
+  if (!userId) {
+    res.status(403).send();
+    return next(new Error('Access denied'));
+  }
+  next();
+};
+
+accountsRouter.get('/', requiredAuth, (req, res) => {
+  const { userId } = req.session;
+
+  const userAccounts = accounts
+    .filter((account) => account.userId === userId)
+    .map(removeUserId);
+
   try {
-    res.status(200).send(`${JSON.stringify(accounts, null, 2)}`);
+    res.status(200).send(`${JSON.stringify(userAccounts, null, 2)}`);
   } catch (e) {
     res.status(503).send(`Ошибка базы данных: ${e}`);
   }
 });
 
-accountsRouter.post('/', (req, res) => {
+accountsRouter.post('/', requiredAuth, (req, res) => {
+  const { userId } = req.session;
+
   try {
     const id = getNewId();
     const newAccount = {
       id,
+      userId,
+      service: req.body.service,
       login: req.body.login,
       password: req.body.password
     };
     accounts.push(newAccount);
-    res.status(201).send(`${JSON.stringify(newAccount, null, 2)}`);
+    const accountData = removeUserId(newAccount);
+    res.status(201).send(`${JSON.stringify(accountData, null, 2)}`);
   } catch (e) {
     res.status(400).send(`Ошибка добавления аккаунта: ${e}`);
   }
 });
 
-accountsRouter.get('/:id', (req, res) => {
+accountsRouter.get('/:id', requiredAuth, (req, res) => {
+  const { userId } = req.session;
   const { id } = req.params;
-  const account = accounts.find((account) => account.id === parseInt(id));
-  const accountInfo = JSON.stringify(account, null, 2);
 
+  const userAccounts = accounts.filter((account) => account.userId === userId);
+  const account = userAccounts.find((account) => account.id === parseInt(id));
+  
   if (account) {
+    const accountInfo = JSON.stringify(removeUserId(account), null, 2);
     res.status(200).send(`${accountInfo}`);
   } else {
     res.status(404).send('Аккаунт не найден!');
   }
 });
 
-accountsRouter.put('/:id', (req, res) => {
+accountsRouter.put('/:id', requiredAuth, (req, res) => {
+  const { userId } = req.session;
+
   try {
     const { id } = req.params;
     const newData = req.body;
 
-    const index = accounts.findIndex((account) => account.id === parseInt(id));
+    const userAccounts = accounts.filter((account) => account.userId === userId);
+    const index = userAccounts.findIndex((account) => account.id === parseInt(id));
 
     if (index === -1) {
       res.status(404).send('Аккаунт не найден!');
@@ -64,10 +93,13 @@ accountsRouter.put('/:id', (req, res) => {
   }
 });
 
-accountsRouter.delete('/:id', (req, res) => {
+accountsRouter.delete('/:id', requiredAuth, (req, res) => {
+  const { userId } = req.session;
+
   try {
     const { id } = req.params;
-    const account = accounts.find((account) => account.id === parseInt(id));
+    const userAccounts = accounts.filter((account) => account.userId === userId);
+    const account = userAccounts.find((account) => account.id === parseInt(id));
 
     if (!account) {
       res.status(404).send('Аккаунт не найден!');
