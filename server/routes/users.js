@@ -1,5 +1,6 @@
 import express from 'express';
 
+import client from '../db.js';
 import encrypt from '../encrypt.js';
 
 const usersRouter = express.Router();
