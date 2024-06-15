@@ -9,7 +9,7 @@
     <header class="header">
       <nav class="navbar navbar-expand-lg section">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">passWD42</a>
+          <a class="navbar-brand" href="#">passWD40</a>
           <button
             class="navbar-toggler mobile-menu-icon"
             type="button"
@@ -38,52 +38,54 @@
               tabindex="-1"
             >
               <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
-                      Sign in
-                    </h1>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="floatingInput"
-                        value=""
-                        placeholder="name@example.com"
-                      />
-                      <label for="floatingInput">Email address</label>
+                <form id="loginUserForm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalToggleLabel">
+                        Sign in
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
-                    <div class="form-floating">
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="floatingPassword"
-                        value=""
-                        placeholder="Password"
-                      />
-                      <label for="floatingPassword">Password</label>
+                    <div class="modal-body">
+                      <div class="form-floating mb-3">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="floatingInput1"
+                          placeholder="name@example.com"
+                          required
+                        />
+                        <label for="floatingInput1">Email address</label>
+                      </div>
+                      <div class="form-floating">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="floatingPassword1"
+                          placeholder="Password"
+                          required
+                        />
+                        <label for="floatingPassword1">Password</label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" id="selectUser">Login</button>
+                      <p>or</p>
+                      <button
+                        class="btn btn-primary"
+                        data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal"
+                      >
+                        Create account
+                      </button>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-primary" id="selectUser">Login</button>
-                    <p>or</p>
-                    <button
-                      class="btn btn-primary"
-                      data-bs-target="#exampleModalToggle2"
-                      data-bs-toggle="modal"
-                    >
-                      Create account
-                    </button>
-                  </div>
-                </div>
+                </form>
               </div>
             </div>
             <div
@@ -112,35 +114,38 @@
                         <input
                           type="email"
                           class="form-control"
-                          id="floatingInput"
+                          id="floatingInput2"
                           placeholder="name@example.com"
                           name="email"
+                          required
                         />
-                        <label for="floatingInput">Email address</label>
+                        <label for="floatingInput2">Email address</label>
                       </div>
                       <div class="form-floating mb-3">
                         <input
                           type="password"
                           class="form-control"
-                          id="floatingPassword"
+                          id="floatingPassword2"
                           placeholder="Password"
                           name="password"
+                          required
                         />
-                        <label for="floatingPassword">Password</label>
+                        <label for="floatingPassword2">Password</label>
                       </div>
                       <div class="form-floating">
                         <input
                           type="password"
                           class="form-control"
-                          id="floatingPassword"
+                          id="floatingPassword3"
                           placeholder="Password"
-                          name="repeat_assword"
+                          name="repeat_password"
+                          required
                         />
-                        <label for="floatingPassword">Repeat Password</label>
+                        <label for="floatingPassword3">Repeat Password</label>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-primary">Create account</button>
+                      <button type="submit" class="btn btn-primary">Create account</button>
                       <p>or</p>
                       <button
                         class="btn btn-primary"
@@ -207,37 +212,37 @@
                   <input
                     type="email"
                     class="form-control"
-                    id="floatingInput"
+                    id="floatingInput3"
                     placeholder="name@example.com"
                   />
-                  <label for="floatingInput">Source example.com</label>
+                  <label for="floatingInput3">Source example.com</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
                     type="email"
                     class="form-control"
-                    id="floatingInput"
+                    id="floatingInput4"
                     placeholder="name@example.com"
                   />
-                  <label for="floatingInput">Username</label>
+                  <label for="floatingInput4">Username</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword"
+                    id="floatingPassword4"
                     placeholder="Password"
                   />
-                  <label for="floatingPassword">Password</label>
+                  <label for="floatingPassword4">Password</label>
                 </div>
                 <div class="form-floating">
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword"
+                    id="floatingPassword5"
                     placeholder="Password"
                   />
-                  <label for="floatingPassword">Repeat Password</label>
+                  <label for="floatingPassword5">Repeat Password</label>
                 </div>
               </div>
               <div class="modal-footer">
@@ -306,37 +311,37 @@
                       <input
                         type="email"
                         class="form-control"
-                        id="floatingInput"
+                        id="floatingInput5"
                         placeholder="name@example.com"
                       />
-                      <label for="floatingInput">Source example.com</label>
+                      <label for="floatingInput5">Source example.com</label>
                     </div>
                     <div class="form-floating mb-3">
                       <input
                         type="email"
                         class="form-control"
-                        id="floatingInput"
+                        id="floatingInput6"
                         placeholder="name@example.com"
                       />
-                      <label for="floatingInput">Username</label>
+                      <label for="floatingInput6">Username</label>
                     </div>
                     <div class="form-floating mb-3">
                       <input
                         type="password"
                         class="form-control"
-                        id="floatingPassword"
+                        id="floatingPassword6"
                         placeholder="Password"
                       />
-                      <label for="floatingPassword">Password</label>
+                      <label for="floatingPassword6">Password</label>
                     </div>
                     <div class="form-floating">
                       <input
                         type="password"
                         class="form-control"
-                        id="floatingPassword"
+                        id="floatingPassword7"
                         placeholder="Password"
                       />
-                      <label for="floatingPassword">Repeat Password</label>
+                      <label for="floatingPassword7">Repeat Password</label>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -405,6 +410,6 @@
     <footer class="section">
       <div class="text-center">made by Hexlers</div>
     </footer>
-    <script type="module" src="../js-app/index.js"></script>
+    <!-- <script src='dist/index_bundle.js'></script> -->
   </body>
 </html>
