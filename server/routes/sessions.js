@@ -1,14 +1,14 @@
 import express from 'express';
 
-import encrypt from '../encrypt.js';
-import { users } from './users.js';
+import { getUserByLogin } from '../src/dbQueries.js';
+import encrypt from '../src/encrypt.js';
 
 const sessionsRouter = express.Router();
 
-sessionsRouter.post('/', (req, res) => {
+sessionsRouter.post('/', async (req, res) => {
   const { login, password } = req.body;
-  const user = users.find((u) => u.login === login);
-  if (!user || (user.passwordDigest !== encrypt(password))) {
+  const user = await getUserByLogin(login);
+  if (!user || (user.password_digest !== encrypt(password))) {
     res.status(422);
     res.send(JSON.stringify({ form: { login, password }, error: 'Invalid login or password' }));
     return;

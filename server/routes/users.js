@@ -1,53 +1,46 @@
 import express from 'express';
 
-import client from '../db.js';
-import encrypt from '../encrypt.js';
+import requiredAuth from '../middlwares/index.js';
+import encrypt from '../src/encrypt.js';
+import {
+  getUserById, getUserByLogin, createUser, updateUser, deleteUser,
+} from '../src/dbQueries.js';
 
 const usersRouter = express.Router();
 
-let id = 0;
-
-const getNewId = () => {
-  id += 1;
-  return id;
-};
-
-let users = [];
-
-usersRouter.post('/', (req, res) => {
-  const { login, password } = req.body;
-
+const validate = async (login, password) => {
   const errors = {};
   if (!login) {
-    errors.login = "Логин не может пустым";
+    errors.login = 'Логин не может пустым';
   }
 
   if (!password) {
-    errors.password = "Пароль не может быть пустым";
+    errors.password = 'Пароль не может быть пустым';
   }
 
-  if (users.filter((user) => user.login === login).length) {
+  const alreadyExists = await getUserByLogin(login);
+  if (alreadyExists) {
     errors.login = 'Этот логин уже занят';
   }
+  return errors;
+};
 
-  if (!Object.keys(errors).length) {
-    const user = {
-      id: getNewId(),
-      login,
-      passwordDigest: encrypt(password)
-    };
-    users.push(user);
+usersRouter.post('/', async (req, res) => {
+  const { login, password } = req.body;
 
-    req.session.userId = user.id;
-    res.end(JSON.stringify({ login, id }));
+  const errors = await validate(login, password);
+  if (Object.keys(errors).length) {
+    res.status(422);
+    res.send(JSON.stringify({ form: { login, password }, errors }));
     return;
   }
 
-  res.status(422);
-  res.send(JSON.stringify({ form: { login, password }, errors }));
+  const user = await createUser(login, encrypt(password));
+  req.session.userId = user.id;
+  res.end(JSON.stringify({ login, id: user.id }));
 });
 
-usersRouter.get('/current', (req, res) => {
+usersRouter.get('/current', async (req, res) => {
   const { userId } = req.session;
 
   if (!userId) {
@@ -55,7 +48,7 @@ usersRouter.get('/current', (req, res) => {
     return;
   }
 
-  const user = users.find((user) => user.id === parseInt(userId));
+  const user = await getUserById(userId);
   if (!user) {
     req.session.destroy(() => {
       res.status(404).send('Пользователь не найден!');
@@ -66,42 +59,11 @@ usersRouter.get('/current', (req, res) => {
   res.status(200).send(`${userInfo}`);
 });
 
-usersRouter.put('/current', (req, res) => {
+usersRouter.put('/current', requiredAuth, async (req, res) => {
   const { userId } = req.session;
   const newData = req.body;
 
-  if (!userId) {
-    res.status(403).send();
-    return;
-  }
-
-  const index = users.findIndex((user) => user.id === parseInt(userId));
-  if (index === -1) {
-    req.session.destroy(() => {
-      res.status(404).send('Пользователь не найден!');
-    });
-    return;
-  }
-  const processedData = {
-    login: newData.login || users[index].login,
-    passwordDigest: encrypt(newData.password) || users[index].passwordDigest,
-  };
-  users[index] = { ...users[index], ...processedData };
-  const user = users[index];
-  const userInfo = JSON.stringify({ id: user.id, login: user.login, isGuest: false }, null, 2);
-  res.status(200).send(`${userInfo}`);
-  return;
-});
-
-usersRouter.delete('/current', (req, res) => {
-  const { userId } = req.session;
-  if (!userId) {
-    res.status(403).send();
-    return;
-  }
-
-  const user = users.find((user) => user.id === parseInt(id));
-
+  const user = await getUserById(userId);
   if (!user) {
     req.session.destroy(() => {
       res.status(404).send('Пользователь не найден!');
@@ -109,12 +71,44 @@ usersRouter.delete('/current', (req, res) => {
     return;
   }
 
-  users = users.filter((user) => user.id !== parseInt(id));
+  const login = newData.login || user.login;
+  const passwordDigest = newData.password
+    ? encrypt(newData.password)
+    : user.password_digest;
+
+  const errors = await validate(login, passwordDigest);
+  if (Object.keys(errors).length) {
+    res.status(422);
+    res.send(JSON.stringify({ form: { login, passwordDigest }, errors }));
+    return;
+  }
+
+  await updateUser(userId, login, passwordDigest);
+
+  const updatedUser = {
+    id: userId,
+    login,
+  };
+
+  res.status(200).send(JSON.stringify(updatedUser, null, 2));
+});
+
+usersRouter.delete('/current', requiredAuth, async (req, res) => {
+  const { userId } = req.session;
+
+  const user = await getUserById(userId);
+  if (!user) {
+    req.session.destroy(() => {
+      res.status(404).send('Пользователь не найден!');
+    });
+    return;
+  }
+
+  await deleteUser(userId);
 
   req.session.destroy(() => {
     res.status(200).send('Аккаунт успешно удален!');
   });
 });
 
-export { users };
 export default usersRouter;
