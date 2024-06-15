@@ -10,12 +10,12 @@ sessionsRouter.post('/', async (req, res) => {
   const user = await getUserByLogin(login);
   if (!user || (user.password_digest !== encrypt(password))) {
     res.status(422);
-    res.send(JSON.stringify({ form: { login, password }, error: 'Invalid login or password' }));
+    res.send({ form: { login, password }, error: 'Invalid login or password' });
     return;
   }
 
   req.session.userId = user.id;
-  res.status(200).send();
+  res.status(200).send({ id: user.id, login });
 });
 
 sessionsRouter.delete('/', (req, res) => {

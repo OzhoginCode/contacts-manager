@@ -31,13 +31,13 @@ usersRouter.post('/', async (req, res) => {
   const errors = await validate(login, password);
   if (Object.keys(errors).length) {
     res.status(422);
-    res.send(JSON.stringify({ form: { login, password }, errors }));
+    res.send({ form: { login, password }, errors });
     return;
   }
 
   const user = await createUser(login, encrypt(password));
   req.session.userId = user.id;
-  res.end(JSON.stringify({ login, id: user.id }));
+  res.send({ login, id: user.id });
 });
 
 usersRouter.get('/current', async (req, res) => {
@@ -55,8 +55,8 @@ usersRouter.get('/current', async (req, res) => {
     });
     return;
   }
-  const userInfo = JSON.stringify({ id: user.id, login: user.login, isGuest: false }, null, 2);
-  res.status(200).send(`${userInfo}`);
+  const userInfo = { id: user.id, login: user.login, isGuest: false };
+  res.status(200).send(userInfo);
 });
 
 usersRouter.put('/current', requiredAuth, async (req, res) => {
@@ -79,18 +79,12 @@ usersRouter.put('/current', requiredAuth, async (req, res) => {
   const errors = await validate(login, passwordDigest);
   if (Object.keys(errors).length) {
     res.status(422);
-    res.send(JSON.stringify({ form: { login, passwordDigest }, errors }));
+    res.send({ form: { login, passwordDigest }, errors });
     return;
   }
 
   await updateUser(userId, login, passwordDigest);
-
-  const updatedUser = {
-    id: userId,
-    login,
-  };
-
-  res.status(200).send(JSON.stringify(updatedUser, null, 2));
+  res.status(200).send({ id: userId, login });
 });
 
 usersRouter.delete('/current', requiredAuth, async (req, res) => {
