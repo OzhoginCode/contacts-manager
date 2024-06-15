@@ -1,117 +1,81 @@
 import express from 'express';
 
+import requiredAuth from '../middlwares/index.js';
+import {
+  getAccountsByUserId, addNewAccount, getUserAccountById, updateAccount, deleteAccount,
+} from '../src/dbQueries.js';
+
 const accountsRouter = express.Router();
 
-let accounts = [];
-let id = 0;
+const removeUserId = ({ user_id, ...account }) => account; // eslint-disable-line camelcase
 
-const getNewId = () => {
-  id += 1;
-  return id;
-};
-
-const removeUserId = ({ userId, ...account }) => account;
-
-const requiredAuth = (req, res, next) => {
+accountsRouter.get('/', requiredAuth, async (req, res) => {
   const { userId } = req.session;
 
-  if (!userId) {
-    res.status(403).send();
-    return next(new Error('Access denied'));
-  }
-  next();
-};
-
-accountsRouter.get('/', requiredAuth, (req, res) => {
-  const { userId } = req.session;
-
-  const userAccounts = accounts
-    .filter((account) => account.userId === userId)
-    .map(removeUserId);
-
-  try {
-    res.status(200).send(`${JSON.stringify(userAccounts, null, 2)}`);
-  } catch (e) {
-    res.status(503).send(`Ошибка базы данных: ${e}`);
-  }
+  const userAccounts = await getAccountsByUserId(userId);
+  const accountsData = userAccounts.map(removeUserId);
+  res.status(200).send(`${JSON.stringify(accountsData, null, 2)}`);
 });
 
-accountsRouter.post('/', requiredAuth, (req, res) => {
+accountsRouter.post('/', requiredAuth, async (req, res) => {
   const { userId } = req.session;
+  const { service, login, password } = req.body;
 
-  try {
-    const id = getNewId();
-    const newAccount = {
-      id,
-      userId,
-      service: req.body.service,
-      login: req.body.login,
-      password: req.body.password
-    };
-    accounts.push(newAccount);
-    const accountData = removeUserId(newAccount);
-    res.status(201).send(`${JSON.stringify(accountData, null, 2)}`);
-  } catch (e) {
-    res.status(400).send(`Ошибка добавления аккаунта: ${e}`);
-  }
+  const createdAccount = await addNewAccount(userId, service, login, password);
+  const accountData = removeUserId(createdAccount);
+  res.status(201).send(`${JSON.stringify(accountData, null, 2)}`);
 });
 
-accountsRouter.get('/:id', requiredAuth, (req, res) => {
+accountsRouter.get('/:id', requiredAuth, async (req, res) => {
   const { userId } = req.session;
-  const { id } = req.params;
+  const { id: acccountId } = req.params;
 
-  const userAccounts = accounts.filter((account) => account.userId === userId);
-  const account = userAccounts.find((account) => account.id === parseInt(id));
-  
-  if (account) {
-    const accountInfo = JSON.stringify(removeUserId(account), null, 2);
-    res.status(200).send(`${accountInfo}`);
-  } else {
+  const account = await getUserAccountById(userId, acccountId);
+
+  if (!account) {
     res.status(404).send('Аккаунт не найден!');
+    return;
   }
+
+  const accountInfo = JSON.stringify(removeUserId(account), null, 2);
+  res.status(200).send(`${accountInfo}`);
 });
 
-accountsRouter.put('/:id', requiredAuth, (req, res) => {
+accountsRouter.put('/:id', requiredAuth, async (req, res) => {
   const { userId } = req.session;
+  const { id: acccountId } = req.params;
+  const newData = req.body;
 
-  try {
-    const { id } = req.params;
-    const newData = req.body;
+  const account = await getUserAccountById(userId, acccountId);
 
-    const userAccounts = accounts.filter((account) => account.userId === userId);
-    const index = userAccounts.findIndex((account) => account.id === parseInt(id));
-
-    if (index === -1) {
-      res.status(404).send('Аккаунт не найден!');
-      return;
-    }
-
-    accounts[index] = { ...accounts[index], ...newData };
-    res.status(200).send(`Аккаунт ${id} обновлен`);
-  } catch (error) {
-    res.status(400).send(`Ошибка: ${error}`);
+  if (!account) {
+    res.status(404).send('Аккаунт не найден!');
+    return;
   }
+
+  const service = newData.service || account.service;
+  const login = newData.login || account.login;
+  const password = newData.password || account.password;
+
+  await updateAccount(acccountId, service, login, password);
+
+  res.status(200).send(`Аккаунт ${acccountId} обновлен`);
 });
 
-accountsRouter.delete('/:id', requiredAuth, (req, res) => {
+accountsRouter.delete('/:id', requiredAuth, async (req, res) => {
   const { userId } = req.session;
+  const { id: accountId } = req.params;
 
-  try {
-    const { id } = req.params;
-    const userAccounts = accounts.filter((account) => account.userId === userId);
-    const account = userAccounts.find((account) => account.id === parseInt(id));
+  const account = await getUserAccountById(userId, accountId);
 
-    if (!account) {
-      res.status(404).send('Аккаунт не найден!');
-      return;
-    }
-
-    accounts = accounts.filter((account) => account.id !== parseInt(id));
-
-    res.send('Аккаунт успешно удален!');
-  } catch (error) {
-    res.status(500).send(`Произошла ошибка при удалении аккаунта: ${error}`);
+  if (!account) {
+    res.status(404).send('Аккаунт не найден!');
+    return;
   }
+
+  await deleteAccount(accountId);
+
+  res.status(200).send('Аккаунт успешно удален!');
 });
 
 export default accountsRouter;

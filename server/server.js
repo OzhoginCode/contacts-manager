@@ -4,7 +4,7 @@ import session from 'express-session';
 
 import accountsRouter from './routes/accounts.js';
 import usersRouter from './routes/users.js';
-import sessionsRouter from './routes/sessions.js'
+import sessionsRouter from './routes/sessions.js';
 
 export default () => {
   const app = new Express();
