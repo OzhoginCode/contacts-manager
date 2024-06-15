@@ -14,7 +14,7 @@ accountsRouter.get('/', requiredAuth, async (req, res) => {
 
   const userAccounts = await getAccountsByUserId(userId);
   const accountsData = userAccounts.map(removeUserId);
-  res.status(200).send(`${JSON.stringify(accountsData, null, 2)}`);
+  res.status(200).send(accountsData);
 });
 
 accountsRouter.post('/', requiredAuth, async (req, res) => {
@@ -23,7 +23,7 @@ accountsRouter.post('/', requiredAuth, async (req, res) => {
 
   const createdAccount = await addNewAccount(userId, service, login, password);
   const accountData = removeUserId(createdAccount);
-  res.status(201).send(`${JSON.stringify(accountData, null, 2)}`);
+  res.status(201).send(accountData);
 });
 
 accountsRouter.get('/:id', requiredAuth, async (req, res) => {
@@ -37,8 +37,8 @@ accountsRouter.get('/:id', requiredAuth, async (req, res) => {
     return;
   }
 
-  const accountInfo = JSON.stringify(removeUserId(account), null, 2);
-  res.status(200).send(`${accountInfo}`);
+  const accountInfo = removeUserId(account);
+  res.status(200).send(accountInfo);
 });
 
 accountsRouter.put('/:id', requiredAuth, async (req, res) => {
