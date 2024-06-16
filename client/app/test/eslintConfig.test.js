@@ -45,7 +45,6 @@ describe("ESLint Configuration", () => {
       if (override.plugins && override.plugins.includes("react")) {
         const eslintPluginReact = require("eslint-plugin-react");
         expect(override.plugins.includes("react")).toBe(true);
-        // Проверяем только наличие плагина, так как у объектов разные ссылки
         expect(eslintPluginReact).toBeTruthy();
       }
     });
