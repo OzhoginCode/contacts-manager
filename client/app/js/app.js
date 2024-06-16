@@ -1,37 +1,37 @@
-import axios from 'axios';
+import axios from "axios";
 
 const renderHomePage = (state) => {
   const signInButton = document.querySelector('#exampleModalToggleLabel');
   signInButton.textContent = state.currentUser;
-};
+}
 
 const addNewUser = async (newUser) => {
   try {
-    const response = await axios.post('/api/users/', newUser);
-    return response.data;
+    const response = await axios.post('/api/users/', newUser)
+    return response.data
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 };
 
 const loginUser = async (user) => {
   try {
-    const response = await axios.post('api/sessions/', user);
-    alert('hello');
-    return response.data;
+    const response = await axios.post('api/sessions/', user)
+    alert('hello')
+    return response.data
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 };
 
 const getCurrentUser = async (state) => {
   try {
-    const response = await axios.get('/api/users/current/', { isGuest: true });
-    console.log(response.data);
+    const response = await axios.get('/api/users/current/', {isGuest: true})
+    console.log(response.data)
     const userEmail = response.data.email;
     state.currentUser = userEmail;
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 };
 
@@ -48,8 +48,8 @@ const app = () => {
     currentUser: '',
   };
   const elements = {
+    createUserForm: document.querySelector('#createUserForm'),
     loginUserForm: document.querySelector('#loginUserForm'),
-    createUserForm: document.getElementById('createUserForm'),
     signInButton: document.querySelector('#exampleModalToggleLabel'),
   };
   // elements.signInButton.textContent = 'Hello'
@@ -60,7 +60,7 @@ const app = () => {
     const formData = new FormData(form);
     const email = formData.get('email');
     const password = formData.get('password');
-    console.log(email, password);
+    console.log(email, password)
     state.loginUserForm.email = email;
     state.loginUserForm.password = password;
     loginUser({ login: email, password: password });
@@ -79,15 +79,14 @@ const app = () => {
     if (password === repeat_password) {
       state.createUserForm.email = email;
       state.createUserForm.password = password;
-    }
+    };
     addNewUser({ login: email, password: password });
     form.reset();
   };
 
-  elements.createUserForm.addEventListener('submit', (e) =>
-    createUserHandler(e)
-  );
+
+  elements.createUserForm.addEventListener('submit', (e) => createUserHandler(e));
   elements.loginUserForm.addEventListener('submit', (e) => loginUserHandler(e));
 };
-
+app();
 export { app };
