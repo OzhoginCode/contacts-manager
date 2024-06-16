@@ -26,7 +26,7 @@ const validate = async (login, password) => {
 };
 
 usersRouter.post('/', async (req, res) => {
-  const { login, password } = req.body;
+  const { login = '', password = '' } = req.body;
 
   const errors = await validate(login, password);
   if (Object.keys(errors).length) {
@@ -37,14 +37,14 @@ usersRouter.post('/', async (req, res) => {
 
   const user = await createUser(login, encrypt(password));
   req.session.userId = user.id;
-  res.send({ login, id: user.id });
+  res.status(201).send({ login, id: user.id });
 });
 
 usersRouter.get('/current', async (req, res) => {
   const { userId } = req.session;
 
   if (!userId) {
-    res.status(200).send({ isGuest: true });
+    res.send({ isGuest: true });
     return;
   }
 
@@ -56,7 +56,7 @@ usersRouter.get('/current', async (req, res) => {
     return;
   }
   const userInfo = { id: user.id, login: user.login, isGuest: false };
-  res.status(200).send(userInfo);
+  res.send(userInfo);
 });
 
 usersRouter.put('/current', requiredAuth, async (req, res) => {
@@ -84,7 +84,7 @@ usersRouter.put('/current', requiredAuth, async (req, res) => {
   }
 
   await updateUser(userId, login, passwordDigest);
-  res.status(200).send({ id: userId, login });
+  res.send({ id: userId, login });
 });
 
 usersRouter.delete('/current', requiredAuth, async (req, res) => {
@@ -101,7 +101,7 @@ usersRouter.delete('/current', requiredAuth, async (req, res) => {
   await deleteUser(userId);
 
   req.session.destroy(() => {
-    res.status(200).send('Аккаунт успешно удален!');
+    res.status(204).send('Аккаунт успешно удален!');
   });
 });
 

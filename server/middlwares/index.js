@@ -2,7 +2,7 @@ const requiredAuth = (req, res, next) => {
   const { userId } = req.session;
 
   if (!userId) {
-    res.status(403).send();
+    res.status(401).send();
     next(new Error('Access denied'));
     return;
   }
