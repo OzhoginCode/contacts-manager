@@ -1,11 +1,13 @@
 // Import our custom CSS
 import "#scss/styles.scss";
+
 import { Header } from "#js/components/header/header.js";
 import { Main } from "#js/components/main/main.js";
 import { Footer } from "#js/components/footer/footer.js";
 
 import logoIcon from "#icons/logo.svg";
 import heroIcon from "#icons/hero.svg";
+import * as App from "#js/app.js";
 
 // Import all of Bootstrap's JS
 import * as bootstrap from "bootstrap";
@@ -45,4 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   heroDesktop.alt = "passWD40 logo";
   heroDesktop.className = "hero-section__desktop";
   document.getElementById("hero-desktop").appendChild(heroDesktop);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  App.app();
 });

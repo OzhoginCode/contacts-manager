@@ -69,6 +69,11 @@
   );
 }
 
+#loginUserForm,
+#createUserForm {
+  width: 100%;
+}
+
 .modal-content {
   padding: var(--padding);
   border-radius: var(--border-radius);
@@ -161,7 +166,7 @@ body {
 }
 
 .password-item:hover .rate-number {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.2);
 }
 
 .button-purple {

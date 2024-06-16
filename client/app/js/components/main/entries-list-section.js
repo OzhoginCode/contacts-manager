@@ -55,37 +55,37 @@ export const EntriesListSection = {
                     <input
                       type="email"
                       class="form-control"
-                      id="floatingInput"
+                      id="floatingInput5"
                       placeholder="name@example.com"
                     />
-                    <label for="floatingInput">Source example.com</label>
+                    <label for="floatingInput5">Source example.com</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
                       type="email"
                       class="form-control"
-                      id="floatingInput"
+                      id="floatingInput6"
                       placeholder="name@example.com"
                     />
-                    <label for="floatingInput">Username</label>
+                    <label for="floatingInput6">Username</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
                       type="password"
                       class="form-control"
-                      id="floatingPassword"
+                      id="floatingPassword6"
                       placeholder="Password"
                     />
-                    <label for="floatingPassword">Password</label>
+                    <label for="floatingPassword6">Password</label>
                   </div>
                   <div class="form-floating">
                     <input
                       type="password"
                       class="form-control"
-                      id="floatingPassword"
+                      id="floatingPassword7"
                       placeholder="Password"
                     />
-                    <label for="floatingPassword">Repeat Password</label>
+                    <label for="floatingPassword7">Repeat Password</label>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -177,17 +177,17 @@ export const EntriesListSection = {
                 </div>
                 <div class="modal-body">
                   <div>
-          <span class="item-name">Source</span>
-          <div class="item-value">example.com</div>
-        </div>
-        <div>
-          <span class="item-name">Username</span>
-          <div class="item-value">user523</div>
-        </div>
-        <div>
-          <span class="item-name">Password</span>
-          <div class="item-value">p@$$WD40</div>
-        </div>
+                    <span class="item-name">Source</span>
+                    <div class="item-value">example.com</div>
+                  </div>
+                  <div>
+                    <span class="item-name">Username</span>
+                    <div class="item-value">user523</div>
+                  </div>
+                  <div>
+                    <span class="item-name">Password</span>
+                    <div class="item-value">p@$$WD40</div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button

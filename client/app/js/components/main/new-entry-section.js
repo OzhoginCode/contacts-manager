@@ -40,44 +40,46 @@ export const NewEntrySection = {
                 <input
                   type="email"
                   class="form-control"
-                  id="floatingInput"
+                  id="floatingInput3"
                   placeholder="name@example.com"
                 />
-                <label for="floatingInput">Source example.com</label>
+                <label for="floatingInput3">Source example.com</label>
               </div>
               <div class="form-floating mb-3">
                 <input
                   type="email"
                   class="form-control"
-                  id="floatingInput"
+                  id="floatingInput4"
                   placeholder="name@example.com"
                 />
-                <label for="floatingInput">Username</label>
+                <label for="floatingInput4">Username</label>
               </div>
               <div class="form-floating mb-3">
                 <input
                   type="password"
                   class="form-control"
-                  id="floatingPassword"
+                  id="floatingPassword4"
                   placeholder="Password"
                 />
-                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword4">Password</label>
               </div>
               <div class="form-floating">
                 <input
                   type="password"
                   class="form-control"
-                  id="floatingPassword"
+                  id="floatingPassword5"
                   placeholder="Password"
                 />
-                <label for="floatingPassword">Repeat Password</label>
+                <label for="floatingPassword5">Repeat Password</label>
               </div>
             </div>
+
             <div class="modal-footer">
               <button 
                 type="button"
                 class="button-purple"
-                data-bs-dismiss="modal">
+                data-bs-dismiss="modal"
+              >
                 Save
               </button>
               <button
