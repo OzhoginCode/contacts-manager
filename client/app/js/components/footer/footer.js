@@ -1,10 +1,10 @@
 export const Footer = {
-  tagName: "footer-component",
+  tagName: 'footer-component',
 
   create() {
-    const footer = document.createElement("footer");
-    footer.className = "footer";
-    footer.id = "footer";
+    const footer = document.createElement('footer');
+    footer.className = 'footer';
+    footer.id = 'footer';
 
     footer.innerHTML = `
       <div class="section text-center">made by Hexlers</div>

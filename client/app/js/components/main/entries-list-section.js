@@ -1,10 +1,10 @@
 export const EntriesListSection = {
-  tagName: "entries-list-section",
+  tagName: 'entries-list-section',
 
   create() {
-    const entriesListSection = document.createElement("ul");
-    entriesListSection.className = "entries-list";
-    entriesListSection.id = "entries-list";
+    const entriesListSection = document.createElement('ul');
+    entriesListSection.className = 'entries-list';
+    entriesListSection.id = 'entries-list';
 
     entriesListSection.innerHTML = `
       <li class="password-item section">

@@ -1,19 +1,19 @@
 // Import our custom CSS
-import "#scss/styles.scss";
+import '#scss/styles.scss';
 
-import { Header } from "#js/components/header/header.js";
-import { Main } from "#js/components/main/main.js";
-import { Footer } from "#js/components/footer/footer.js";
+import { Header } from '#js/components/header/header.js';
+import { Main } from '#js/components/main/main.js';
+import { Footer } from '#js/components/footer/footer.js';
 
-import logoIcon from "#icons/logo.svg";
-import heroIcon from "#icons/hero.svg";
-import * as App from "#js/app.js";
+import logoIcon from '#icons/logo.svg';
+import heroIcon from '#icons/hero.svg';
+import * as App from '#js/app.js';
 
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import * as bootstrap from 'bootstrap';
 
-document.addEventListener("DOMContentLoaded", () => {
-  const app = document.getElementById("app");
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app');
 
   const header = Header.create();
   Header.init(header);
@@ -29,26 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // svg
-document.addEventListener("DOMContentLoaded", () => {
-  const logo = document.createElement("img");
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.createElement('img');
   logo.src = logoIcon;
-  logo.alt = "LOGO";
-  logo.className = "navbar-logo";
-  document.getElementById("header-logo").appendChild(logo);
+  logo.alt = 'LOGO';
+  logo.className = 'navbar-logo';
+  document.getElementById('header-logo').appendChild(logo);
 
-  const heroMobile = document.createElement("img");
+  const heroMobile = document.createElement('img');
   heroMobile.src = logoIcon;
-  heroMobile.alt = "passWD40 logo";
-  heroMobile.className = "hero-section__mobile";
-  document.getElementById("hero-mobile").appendChild(heroMobile);
+  heroMobile.alt = 'passWD40 logo';
+  heroMobile.className = 'hero-section__mobile';
+  document.getElementById('hero-mobile').appendChild(heroMobile);
 
-  const heroDesktop = document.createElement("img");
+  const heroDesktop = document.createElement('img');
   heroDesktop.src = heroIcon;
-  heroDesktop.alt = "passWD40 logo";
-  heroDesktop.className = "hero-section__desktop";
-  document.getElementById("hero-desktop").appendChild(heroDesktop);
+  heroDesktop.alt = 'passWD40 logo';
+  heroDesktop.className = 'hero-section__desktop';
+  document.getElementById('hero-desktop').appendChild(heroDesktop);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   App.app();
 });

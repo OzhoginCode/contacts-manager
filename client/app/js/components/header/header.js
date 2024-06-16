@@ -1,10 +1,10 @@
 export const Header = {
-  tagName: "header-component",
+  tagName: 'header-component',
 
   create() {
-    const header = document.createElement("header");
-    header.className = "header";
-    header.id = "header";
+    const header = document.createElement('header');
+    header.className = 'header';
+    header.id = 'header';
 
     header.innerHTML = `
       <nav class="navbar navbar-expand-lg section">

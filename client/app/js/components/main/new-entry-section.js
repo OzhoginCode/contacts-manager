@@ -1,10 +1,10 @@
 export const NewEntrySection = {
-  tagName: "new-entry-section",
+  tagName: 'new-entry-section',
 
   create() {
-    const newEntrySection = document.createElement("section");
-    newEntrySection.className = "new-entry-section";
-    newEntrySection.id = "new-entry-section";
+    const newEntrySection = document.createElement('section');
+    newEntrySection.className = 'new-entry-section';
+    newEntrySection.id = 'new-entry-section';
 
     newEntrySection.innerHTML = `
       <button

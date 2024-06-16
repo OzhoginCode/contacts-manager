@@ -1,10 +1,10 @@
 export const HeroSection = {
-  tagName: "hero-section-component",
+  tagName: 'hero-section-component',
 
   create() {
-    const heroSection = document.createElement("section");
-    heroSection.className = "hero-section";
-    heroSection.id = "hero-section";
+    const heroSection = document.createElement('section');
+    heroSection.className = 'hero-section';
+    heroSection.id = 'hero-section';
 
     heroSection.innerHTML = `
       <section id="hero-mobile" class="hero-section__mobile"></section>
