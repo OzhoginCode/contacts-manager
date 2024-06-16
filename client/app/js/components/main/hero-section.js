@@ -41,6 +41,7 @@ export const HeroSection = {
                         class="form-control"
                         id="floatingInput1"
                         placeholder="name@example.com"
+                        name="email"
                         required
                       />
                       <label for="floatingInput1">Email address</label>
@@ -51,6 +52,7 @@ export const HeroSection = {
                         class="form-control"
                         id="floatingPassword1"
                         placeholder="Password"
+                        name="password"
                         required
                       />
                       <label for="floatingPassword1">Password</label>
@@ -112,6 +114,7 @@ export const HeroSection = {
                         type="password"
                         class="form-control"
                         id="floatingPassword2"
+                        name="password"
                         placeholder="Password"
                       />
                       <label for="floatingPassword2">Password</label>
