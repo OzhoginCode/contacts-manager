@@ -14,7 +14,7 @@ accountsRouter.get('/', requiredAuth, async (req, res) => {
 
   const userAccounts = await getAccountsByUserId(userId);
   const accountsData = userAccounts.map(removeUserId);
-  res.status(200).send(accountsData);
+  res.send(accountsData);
 });
 
 accountsRouter.post('/', requiredAuth, async (req, res) => {
@@ -28,9 +28,9 @@ accountsRouter.post('/', requiredAuth, async (req, res) => {
 
 accountsRouter.get('/:id', requiredAuth, async (req, res) => {
   const { userId } = req.session;
-  const { id: acccountId } = req.params;
+  const { id: accountId } = req.params;
 
-  const account = await getUserAccountById(userId, acccountId);
+  const account = await getUserAccountById(userId, accountId);
 
   if (!account) {
     res.status(404).send('Аккаунт не найден!');
@@ -38,15 +38,15 @@ accountsRouter.get('/:id', requiredAuth, async (req, res) => {
   }
 
   const accountInfo = removeUserId(account);
-  res.status(200).send(accountInfo);
+  res.send(accountInfo);
 });
 
 accountsRouter.put('/:id', requiredAuth, async (req, res) => {
   const { userId } = req.session;
-  const { id: acccountId } = req.params;
+  const { id: accountId } = req.params;
   const newData = req.body;
 
-  const account = await getUserAccountById(userId, acccountId);
+  const account = await getUserAccountById(userId, accountId);
 
   if (!account) {
     res.status(404).send('Аккаунт не найден!');
@@ -57,9 +57,9 @@ accountsRouter.put('/:id', requiredAuth, async (req, res) => {
   const login = newData.login || account.login;
   const password = newData.password || account.password;
 
-  await updateAccount(acccountId, service, login, password);
+  await updateAccount(accountId, service, login, password);
 
-  res.status(200).send(`Аккаунт ${acccountId} обновлен`);
+  res.send(`Аккаунт ${accountId} обновлен`);
 });
 
 accountsRouter.delete('/:id', requiredAuth, async (req, res) => {
@@ -75,7 +75,7 @@ accountsRouter.delete('/:id', requiredAuth, async (req, res) => {
 
   await deleteAccount(accountId);
 
-  res.status(200).send('Аккаунт успешно удален!');
+  res.status(204).send('Аккаунт успешно удален!');
 });
 
 export default accountsRouter;
