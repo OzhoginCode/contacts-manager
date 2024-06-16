@@ -15,12 +15,12 @@ sessionsRouter.post('/', async (req, res) => {
   }
 
   req.session.userId = user.id;
-  res.status(200).send({ id: user.id, login });
+  res.send({ id: user.id, login });
 });
 
 sessionsRouter.delete('/', (req, res) => {
   req.session.destroy(() => {
-    res.status(200).send('Пользователь разлогинен');
+    res.status(204).send('Пользователь разлогинен');
   });
 });
 
