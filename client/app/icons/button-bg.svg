@@ -1,0 +1,39 @@
+<svg preserveAspectRatio="none" viewBox="0 0 88.136 49.153" xmlns="http://www.w3.org/2000/svg">
+   <style>
+      @keyframes a_1 {
+         to {
+            transform: scale(.9) translateX(5%) translateY(5%) rotate(2deg)
+         }
+      }
+
+      @keyframes a_2 {
+         to {
+            transform: scale(.9) translateX(5%) translateY(5%) rotate(-2deg)
+         }
+      }
+   </style>
+   <defs>
+      <linearGradient id="lg_1" x1="0" x2="1" y1="0" y2="0">
+         <stop stop-color="#43386b" offset="0" />
+         <stop stop-color="#7662bd" offset=".5" />
+         <stop stop-color="#bfb3eb" offset="1" />
+      </linearGradient>
+   </defs>
+   <g stroke-width="0">
+      <path fill="url(#lg_1)" style="animation:a_1 3s ease-in-out alternate 0s infinite"
+         d="M21.88 0h47.937a18.319 20.673 0 0118.319 20.673v7.372a18.704 21.108 0 01-18.704 21.108H18.96A18.959 21.396 0 01.001 27.757v-3.065A21.88 24.692 0 0121.881 0z"
+         opacity=".5" />
+      <path fill="url(#lg_1)" style="animation:a_2 3s ease-in-out alternate 0.75s infinite"
+         d="M22.577 4.45h44.33a16.356 16.035 0 0116.356 16.034v6.146A19.733 19.345 0 0163.53 45.975H24.32A19.235 18.858 0 015.085 27.117v-5.52A17.492 17.148 0 0122.577 4.45z"
+         opacity=".4" />
+      <path fill="url(#lg_1)" style="animation:a_1 3s ease-in-out alternate 1.5s infinite"
+         d="M24.64 8.263h40.859A14.161 14.448 0 0179.66 22.71v1.506a18.443 18.816 0 01-18.443 18.816H27.845a18.525 18.899 0 01-18.525-18.9v-.24A15.318 15.628 0 0124.638 8.263z"
+         opacity=".45" />
+      <path fill="url(#lg_1)" style="animation:a_2 3s ease-in-out alternate 2.25s infinite"
+         d="M26.018 12.5h39.665a10.376 9.745 0 0110.376 9.745v2.358A15.989 15.016 0 0160.07 39.619H28.512a15.165 14.243 0 01-15.165-14.243v-.977a12.671 11.9 0 0112.671-11.9z"
+         opacity=".4" />
+      <path fill="url(#lg_1)" style="animation:a_1 3s ease-out alternate 3s infinite"
+         d="M29.2 16.1h32.4a9.4 8.2 0 019.4 8.2v1.88a12 10.8 0 01-12 10.5h-31.2a10 8.8 0 01-10-8.8v-1.75a11.4 10 0 0111.4-10z"
+         opacity=".5" />
+   </g>
+</svg>
