@@ -11,7 +11,7 @@
     "test": "jest",
     "start": "webpack serve",
     "build": "webpack",
-    "lint": "eslint . --ext .js,.jsx"
+    "lint": "eslint . --ext .js"
   },
   "husky": {
     "hooks": {
@@ -20,9 +20,6 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix"
-    ],
-    "*.jsx": [
       "eslint --fix"
     ]
   },
