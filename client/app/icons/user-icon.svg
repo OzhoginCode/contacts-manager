@@ -1,0 +1,20 @@
+<svg version="1.1" width="16" height="20" x="0" y="0" xml:space="preserve" class="" id="svg3"
+   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+   <defs id="defs3">
+      <linearGradient xlink:href="#a" id="linearGradient3" gradientUnits="userSpaceOnUse" x1="12" y1="2" x2="12"
+         y2="22" />
+      <linearGradient xlink:href="#a" id="linearGradient4" gradientUnits="userSpaceOnUse" x1="12" y1="2" x2="12"
+         y2="22" />
+   </defs>
+   <g id="g3" transform="translate(-4 -2)">
+      <linearGradient id="a" x1="12" x2="12" y1="2" y2="22" gradientUnits="userSpaceOnUse">
+         <stop offset="0" stop-color="#d7d1eb" id="stop1" />
+         <stop offset="1" stop-color="#a996eb" id="stop2" />
+      </linearGradient>
+      <g fill="url(#linearGradient4)" id="g2">
+         <path
+            d="M12 11.796c2.719 0 4.923-2.193 4.923-4.898C16.923 4.193 14.72 2 12 2S7.077 4.193 7.077 6.898c0 2.705 2.203 4.898 4.923 4.898zm2.564 2.041H9.436C6.462 13.837 4 16.286 4 19.245c0 .714.308 1.327.923 1.633C5.846 21.388 7.897 22 12 22s6.154-.612 7.077-1.122A1.93 1.93 0 0020 19.245c0-3.061-2.461-5.408-5.436-5.408z"
+            fill="url(#linearGradient3)" opacity="1" id="path2" />
+      </g>
+   </g>
+</svg>

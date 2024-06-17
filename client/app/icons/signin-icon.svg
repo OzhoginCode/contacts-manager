@@ -1,0 +1,23 @@
+<svg version="1.1" width="20" height="20" x="0" y="0" xml:space="preserve" class="" id="svg4"
+      xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+      <defs id="defs4">
+            <linearGradient xlink:href="#a" id="linearGradient4" gradientUnits="userSpaceOnUse" x1="12" y1="2" x2="12"
+                  y2="22" />
+            <linearGradient xlink:href="#a" id="linearGradient5" gradientUnits="userSpaceOnUse" x1="12" y1="2" x2="12"
+                  y2="22" />
+            <linearGradient xlink:href="#a" id="linearGradient6" gradientUnits="userSpaceOnUse" x1="12" y1="2" x2="12"
+                  y2="22" />
+      </defs>
+      <g id="g4" transform="translate(-2 -2)">
+            <linearGradient id="a" x1="12" x2="12" y1="2" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#d7d1eb" id="stop1" />d7d1eb
+                  <stop offset="1" stop-color="#a996eb" id="stop2" />
+            </linearGradient>
+            <g fill="url(#linearGradient6)" id="g3">
+                  <path d="M20.163 4.093l-5.102-1.922c-.918-.304-1.837-.203-2.55.303a4.444 4.444 0 00-.715.607H7.918c-1.53 0-2.857 1.315-2.857 2.833v1.012c0 .404.306.81.817.81.51 0 .816-.406.816-.81V5.914c0-.708.612-1.214 1.224-1.214h3.368v14.67H7.918c-.714 0-1.224-.607-1.224-1.215v-1.011a.801.801 0 00-.816-.81c-.51 0-.817.304-.817.709v1.011a2.84 2.84 0 002.857 2.833h3.878c.204.202.408.506.612.607.51.304 1.02.506 1.633.506.306 0 .714-.101 1.02-.202l5.102-1.923C21.286 19.471 22 18.46 22 17.245V6.622c0-1.113-.816-2.226-1.837-2.53z"
+                        fill="url(#linearGradient4)" opacity="1" id="path2" />
+                  <path d="M6.388 13.502a.79.79 0 000 1.113c.102.1.306.202.51.202a.783.783 0 00.51-.202L9.45 12.59c.102-.101.102-.202.204-.202 0-.101.102-.202.102-.304 0-.1 0-.202-.102-.303 0-.101-.102-.202-.204-.202L7.41 9.555a.806.806 0 00-1.123 0 .79.79 0 000 1.113l.714.708H2.816c-.408 0-.816.304-.816.81 0 .505.306.809.816.809h4.286z"
+                        fill="url(#linearGradient5)" opacity="1" id="path3" />
+            </g>
+      </g>
+</svg>
