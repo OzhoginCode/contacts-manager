@@ -122,47 +122,18 @@
   background-image: url('../icons/button-bg-green.svg');
 }
 
-.modal-content .button {
+body .modal-content .button {
   padding: calc(var(--padding) / 2);
   padding-left: var(--padding);
   padding-right: var(--padding);
+
+  border-radius: var(--border-radius);
 
   font-size: var(--font-size);
 }
 
 .button-purple {
   background: var(--bg-button-purple);
-}
-
-.entry-buttons {
-  padding: calc(var(--padding) * 0.5);
-  padding-left: calc(var(--padding));
-  padding-right: calc(var(--padding));
-  border: 0;
-}
-
-.button-edit {
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-  background: var(--bg-button-entries);
-
-  transition: var(--transition);
-}
-
-.button-delete {
-  border-radius: 0;
-  background: var(--bg-button-entries);
-
-  transition: var(--transition);
-}
-
-.button-show {
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-
-  background: var(--bg-button-yellow);
-
-  transition: var(--transition);
 }
 //
 
@@ -253,7 +224,7 @@ body {
   opacity: 1;
 }
 
-.password-item:hover .rate-number {
+.entry-item:hover .rate-number {
   transform: scale(1.2);
 }
 
@@ -403,6 +374,45 @@ label::after {
   border-radius: var(--border-radius);
 
   box-shadow: var(--box-shadow);
+}
+
+.entry-item-buttons .button {
+  padding: calc(var(--padding) * 0.5);
+  padding-left: calc(var(--padding));
+  padding-right: calc(var(--padding));
+  border: 0;
+  border-radius: 0;
+  font-weight: 400;
+  font-size: var(--font-size-sm);
+}
+
+.entry-item-buttons .button:hover {
+  transform: scale(1);
+  opacity: 0.8;
+}
+
+.entry-item-buttons .button-edit {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  background: var(--bg-button-entries);
+
+  transition: var(--transition);
+}
+
+.entry-item-buttons .button-delete {
+  border-radius: 0;
+  background: var(--bg-button-entries);
+
+  transition: var(--transition);
+}
+
+.entry-item-buttons .button-show {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+
+  background: var(--bg-button-yellow);
+
+  transition: var(--transition);
 }
 
 .item-name {

@@ -42,7 +42,7 @@ export const Header = {
                 User@expample.com
               </button>
               <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <form id="userModalForm">
                       <div class="modal-header">
@@ -76,7 +76,7 @@ export const Header = {
                 Exit
               </button>
               <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5" id="exitModalLabel">Exit</h1>

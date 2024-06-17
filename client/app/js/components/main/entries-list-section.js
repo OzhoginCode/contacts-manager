@@ -25,7 +25,7 @@ export const EntriesListSection = {
           <button
             type="button"
             id="edit-button"
-            class="entry-buttons button-edit"
+            class="button button-edit"
             data-bs-toggle="modal"
             data-bs-target="#passwordEditModal"
           >
@@ -112,7 +112,7 @@ export const EntriesListSection = {
           <button
             type="button"
             id="delete-button"
-            class="entry-buttons button-delete"
+            class="button button-delete"
             data-bs-toggle="modal"
             data-bs-target="#passwordDeleteModal"
           >
@@ -157,7 +157,7 @@ export const EntriesListSection = {
           <button
             type="button"
             id="show-button"
-            class="entry-buttons button-show"
+            class="button button-show"
             data-bs-toggle="modal"
             data-bs-target="#passwordShowModal"
           >
