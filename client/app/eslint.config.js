@@ -3,13 +3,10 @@ const globals = require("globals");
 module.exports = {
   overrides: [
     {
-      files: ["**/*.js", "**/*.jsx"],
+      files: ["**/*.js"],
       parserOptions: {
         ecmaVersion: 2021,
         sourceType: "module",
-        ecmaFeatures: {
-          jsx: true,
-        },
       },
       env: {
         browser: true,
@@ -18,18 +15,17 @@ module.exports = {
         ...globals.browser,
       },
       extends: [
-        "plugin:react/recommended",
+        "eslint:recommended",
         "plugin:js/recommended",
       ],
-      plugins: ["react"],
-      settings: {
-        react: {
-          version: "detect",
-        },
-      },
+      plugins: [],
       rules: {
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-        'react/react-in-jsx-scope': 'off',
+        "no-console": "warn",
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "eqeqeq": ["error", "always"],
+        "curly": ["error", "all"],
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
       },
     },
   ],
