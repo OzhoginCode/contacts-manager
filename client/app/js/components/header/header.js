@@ -24,20 +24,75 @@ export const Header = {
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
             </ul>
+
+            <section class="header__buttons-group">
+              <button
+                id="header__signin"
+                class="button"
+                data-bs-target="#exampleModalToggle"
+                data-bs-toggle="modal"
+              >
+                Sign in
+              </button>
             
-            <button
-              class="header__signin"
-              data-bs-target="#exampleModalToggle"
-              data-bs-toggle="modal"
-            >
-              Sign in
-            </button>
+              <button type="button" id="header__user-button" class="button" data-bs-toggle="modal" data-bs-target="#userModal">
+                User@expample.com
+              </button>
+              <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <form id="userModalForm">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="userModalLabel">Edit User Account</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-floating mb-3">
+                          <input type="email" class="form-control" id="editUserEmail" placeholder="name@example.com" name="email" required="" value="name@example.com" autocomplete="on">
+                          <label for="editUserEmail">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="password" class="form-control" id="userModalPassword" name="password" placeholder="Password" value="p@$$WD40" autocomplete="current-password">
+                          <label for="userModalPassword">Password</label>
+                        </div>
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="userModalPasswordRepeat" placeholder="Password" name="repeat_password" required="" value="p@$$WD40" autocomplete="current-password">
+                          <label for="userModalPasswordRepeat">Repeat Password</label>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="button button-grey" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="button button-purple">Save changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" id="header__exit-button" class="button" data-bs-toggle="modal" data-bs-target="#exitModal">
+                Exit
+              </button>
+              <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exitModalLabel">Exit</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="button button-grey" data-bs-dismiss="modal">Yes</button>
+                      <button type="button" class="button button-purple">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </nav>

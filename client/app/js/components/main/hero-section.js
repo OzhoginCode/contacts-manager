@@ -15,6 +15,7 @@ export const HeroSection = {
           <h1>The Most Ultimate Password Manager</h1>
         </section>
         <section>
+        
           <div
             class="modal fade"
             id="exampleModalToggle"
@@ -41,6 +42,8 @@ export const HeroSection = {
                         class="form-control"
                         id="floatingInput1"
                         placeholder="name@example.com"
+                        name="email"
+                        autocomplete="on"
                         required
                       />
                       <label for="floatingInput1">Email address</label>
@@ -51,18 +54,20 @@ export const HeroSection = {
                         class="form-control"
                         id="floatingPassword1"
                         placeholder="Password"
+                        name="password"
+                        autocomplete="on"
                         required
                       />
                       <label for="floatingPassword1">Password</label>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="button-purple" type="submit" id="selectUser">
+                    <button class="button button-purple" type="submit" id="selectUser">
                       Login
                     </button>
                     <p>Still not with us?</p>
                     <button
-                      class="button-grey"
+                      class="button button-grey"
                       data-bs-target="#exampleModalToggle2"
                       data-bs-toggle="modal"
                     >
@@ -73,6 +78,8 @@ export const HeroSection = {
               </form>
             </div>
           </div>
+        
+        
           <div
             class="modal fade"
             id="exampleModalToggle2"
@@ -103,6 +110,7 @@ export const HeroSection = {
                         id="floatingInput2"
                         placeholder="name@example.com"
                         name="email"
+                        autocomplete="on"
                         required
                       />
                       <label for="floatingInput2">Email address</label>
@@ -112,7 +120,9 @@ export const HeroSection = {
                         type="password"
                         class="form-control"
                         id="floatingPassword2"
+                        name="password"
                         placeholder="Password"
+                        autocomplete="on"
                       />
                       <label for="floatingPassword2">Password</label>
                     </div>
@@ -123,16 +133,17 @@ export const HeroSection = {
                         id="floatingPassword3"
                         placeholder="Password"
                         name="repeat_password"
+                        autocomplete="on"
                         required
                       />
                       <label for="floatingPassword3">Repeat Password</label>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="button-purple" type="submit">Create account</button>
+                    <button class="button button-purple" type="submit">Create account</button>
                     <p>or</p>
                     <button
-                      class="button-grey"
+                      class="button button-grey"
                       data-bs-target="#exampleModalToggle"
                       data-bs-toggle="modal"
                     >
@@ -144,7 +155,8 @@ export const HeroSection = {
             </div>
           </div>
           <button
-            class="hero-section__signin"
+            class="button signin"
+            id="hero-section__signin"
             data-bs-target="#exampleModalToggle"
             data-bs-toggle="modal"
           >

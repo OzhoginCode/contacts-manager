@@ -13,19 +13,25 @@ const client = new Client({
 await client.connect();
 
 const createTablesQuery = `
-  CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    login VARCHAR(50) NOT NULL,
-    password_digest VARCHAR(255) NOT NULL
-  );
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  login VARCHAR(50) NOT NULL,
+  password_digest VARCHAR(255) NOT NULL
+);
 
-  CREATE TABLE IF NOT EXISTS accounts (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    service VARCHAR(50) NOT NULL,
-    login VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL
-  );
+CREATE TABLE IF NOT EXISTS accounts (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  service VARCHAR(50) NOT NULL,
+  login VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS session (
+  sid VARCHAR NOT NULL PRIMARY KEY,
+  sess JSON NOT NULL,
+  expire TIMESTAMP(6) NOT NULL
+);
 `;
 
 await client.query(createTablesQuery);
