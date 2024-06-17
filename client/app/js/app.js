@@ -31,9 +31,9 @@ const getCurrentUser = async (state) => {
     // if (!isGuest) {
     state.currentUser = response;
     renderHomePage(state);
-    } catch (response) {
-      alert(response.data);
-  };
+  } catch (response) {
+    alert(response.data);
+  }
 };
 
 const addNewEntry = async (newEntry) => {
@@ -42,7 +42,7 @@ const addNewEntry = async (newEntry) => {
     return response.data;
   } catch (response) {
     alert(response.data);
-  };
+  }
 };
 
 const app = () => {
@@ -76,7 +76,7 @@ const app = () => {
     state.loginUserForm.email = email;
     state.loginUserForm.password = password;
     const loginResp = await loginUser({ login: email, password: password });
-    renderHomePage(state);  
+    renderHomePage(state);
     form.reset();
   };
 
@@ -90,9 +90,9 @@ const app = () => {
     if (password === repeat_password) {
       state.createUserForm.email = email;
       state.createUserForm.password = password;
-    };
+    }
     const addUserResp = await addNewUser({ login: email, password: password });
-    renderHomePage(state);  
+    renderHomePage(state);
     form.reset();
   };
 
@@ -112,18 +112,17 @@ const app = () => {
       });
       state.accaunts.push(addNewEntryResp);
       renderHomePage(state);
-    };
+    }
   };
 
-
   // document.addEventListener('load', () => getCurrentUser(state));
-  elements.createUserForm.addEventListener('submit', (e) => createUserHandler(e));
+  elements.createUserForm.addEventListener('submit', (e) =>
+    createUserHandler(e)
+  );
   elements.loginUserForm.addEventListener('submit', (e) => loginUserHandler(e));
   elements.addNewEntry.addEventListener('submit', (e) => addNewEntryHandler);
 
   getCurrentUser();
 };
-
-
 
 export { app };
