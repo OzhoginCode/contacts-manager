@@ -7,7 +7,7 @@ export const EntriesListSection = {
     entriesListSection.id = 'entries-list';
 
     entriesListSection.innerHTML = `
-      <li class="password-item section">
+      <li class="entry-item section">
         <p class="rate-number">1</p>
         <div>
           <span class="item-name">Source</span>
@@ -21,9 +21,10 @@ export const EntriesListSection = {
           <span class="item-name">Password</span>
           <div class="item-value">&#183;&#183;&#183;&#183;&#183;&#183;</div>
         </div>
-        <section class="password-item-buttons d-flex justify-content-center">
+        <section class="entry-item-buttons">
           <button
             type="button"
+            id="edit-button"
             class="entry-buttons button-edit"
             data-bs-toggle="modal"
             data-bs-target="#passwordEditModal"
@@ -39,6 +40,7 @@ export const EntriesListSection = {
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
+              <form id="passwordEditModalForm">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="passwordEditModalLabel">
                     Edit entry
@@ -66,6 +68,7 @@ export const EntriesListSection = {
                       class="form-control"
                       id="floatingInput6"
                       placeholder="name@example.com"
+                      autocomplete="on"
                     />
                     <label for="floatingInput6">Username</label>
                   </div>
@@ -75,6 +78,7 @@ export const EntriesListSection = {
                       class="form-control"
                       id="floatingPassword6"
                       placeholder="Password"
+                      autocomplete="new-password"
                     />
                     <label for="floatingPassword6">Password</label>
                   </div>
@@ -84,6 +88,7 @@ export const EntriesListSection = {
                       class="form-control"
                       id="floatingPassword7"
                       placeholder="Password"
+                      autocomplete="new-password"
                     />
                     <label for="floatingPassword7">Repeat Password</label>
                   </div>
@@ -91,20 +96,22 @@ export const EntriesListSection = {
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="button-grey"
+                    class="button button-grey"
                     data-bs-dismiss="modal"
                   >
                     Close
                   </button>
-                  <button type="button" class="button-purple">
+                  <button type="button" class="button button-purple">
                     Save changes
                   </button>
                 </div>
+                </form>
               </div>
             </div>
           </div>
           <button
             type="button"
+            id="delete-button"
             class="entry-buttons button-delete"
             data-bs-toggle="modal"
             data-bs-target="#passwordDeleteModal"
@@ -137,18 +144,19 @@ export const EntriesListSection = {
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="button-grey"
+                    class="button button-grey"
                     data-bs-dismiss="modal"
                   >
                     Yes
                   </button>
-                  <button type="button" class="button-purple">No</button>
+                  <button type="button" class="button button-purple">No</button>
                 </div>
               </div>
             </div>
           </div>
           <button
             type="button"
+            id="show-button"
             class="entry-buttons button-show"
             data-bs-toggle="modal"
             data-bs-target="#passwordShowModal"
@@ -192,7 +200,7 @@ export const EntriesListSection = {
                 <div class="modal-footer">
                   <button
                     type="button"
-                    class="button-purple"
+                    class="button button-purple"
                     data-bs-dismiss="modal"
                   >
                     Ok

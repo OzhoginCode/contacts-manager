@@ -9,7 +9,8 @@ export const NewEntrySection = {
     newEntrySection.innerHTML = `
       <button
           type="button"
-          class="new-entry-button"
+          class="button new"
+          id="new-entry-button"
           data-bs-toggle="modal"
           data-bs-target="#passwordAddModal"
         >
@@ -55,6 +56,7 @@ export const NewEntrySection = {
                     id="floatingInput4"
                     placeholder="name@example.com"
                     name="username"
+                    autocomplete="on"
                     required
                   />
                   <label for="floatingInput4">Username</label>
@@ -66,6 +68,7 @@ export const NewEntrySection = {
                     id="floatingPassword4"
                     placeholder="Password"
                     name="password"
+                    autocomplete="on"
                     required
                   />
                   <label for="floatingPassword4">Password</label>
@@ -77,6 +80,7 @@ export const NewEntrySection = {
                     id="floatingPassword5"
                     placeholder="Password"
                     name="repeat_password"
+                    autocomplete="on"
                     required
                   />
                   <label for="floatingPassword5">Repeat Password</label>
@@ -86,14 +90,14 @@ export const NewEntrySection = {
               <div class="modal-footer">
                 <button 
                   type="submit"
-                  class="button-purple"
+                  class="button button-purple"
                   data-bs-dismiss="modal"
                 >
                   Save
                 </button>
                 <button
                   type="button"
-                  class="button-grey"
+                  class="button button-grey"
                   data-bs-dismiss="modal"
                 >
                   Close
