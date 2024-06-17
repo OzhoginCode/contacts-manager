@@ -5,11 +5,10 @@ describe("ESLint Configuration", () => {
     expect(Array.isArray(eslintConfig.overrides)).toBe(true);
   });
 
-  it("should include languageOptions with expected properties", () => {
+  it("should include parserOptions with expected properties", () => {
     eslintConfig.overrides.forEach((override) => {
       expect(override.parserOptions.ecmaVersion).toBe(2021);
       expect(override.parserOptions.sourceType).toBe("module");
-      expect(override.parserOptions.ecmaFeatures.jsx).toBe(true);
     });
   });
 
@@ -20,33 +19,23 @@ describe("ESLint Configuration", () => {
     });
   });
 
-  it("should correctly handle JSX files", () => {
+  it("should correctly handle JS files", () => {
     eslintConfig.overrides.forEach((override) => {
-      const jsxFileConfig = override.files && (override.files.includes("**/*.jsx") || override.files.includes("**/*.js"));
-      expect(jsxFileConfig).toBe(true);
+      const jsFileConfig = override.files && override.files.includes("**/*.js");
+      expect(jsFileConfig).toBe(true);
     });
   });
 
-  it("should fixup config rules for React plugin", () => {
+  it("should include the correct frontend rules", () => {
     eslintConfig.overrides.forEach((override) => {
-      if (override.rules) {
-        const { fixupConfigRules } = require("@eslint/compat");
-        const pluginReactConfig = require("eslint-plugin-react").configs.recommended;
-        const fixedUpConfig = Object.values(override.rules).some(
-          (rule) => typeof rule === "object" && fixupConfigRules(pluginReactConfig, rule)
-        );
-        expect(fixedUpConfig).toBe(true);
-      }
-    });
-  });
+      const rules = override.rules;
 
-  it("should correctly configure React rules and settings", () => {
-    eslintConfig.overrides.forEach((override) => {
-      if (override.plugins && override.plugins.includes("react")) {
-        const eslintPluginReact = require("eslint-plugin-react");
-        expect(override.plugins.includes("react")).toBe(true);
-        expect(eslintPluginReact).toBeTruthy();
-      }
+      expect(rules["no-console"]).toBe("warn");
+      expect(rules["no-unused-vars"]).toEqual(["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]);
+      expect(rules["eqeqeq"]).toEqual(["error", "always"]);
+      expect(rules["curly"]).toEqual(["error", "all"]);
+      expect(rules["semi"]).toEqual(["error", "always"]);
+      expect(rules["quotes"]).toEqual(["error", "single"]);
     });
   });
 });
