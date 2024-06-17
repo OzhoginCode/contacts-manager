@@ -1,6 +1,5 @@
 import express from 'express';
 
-import requiredAuth from '../middlwares/index.js';
 import {
   getAccountsByUserId, addNewAccount, getUserAccountById, updateAccount, deleteAccount,
 } from '../src/dbQueries.js';
@@ -9,7 +8,7 @@ const accountsRouter = express.Router();
 
 const removeUserId = ({ user_id, ...account }) => account; // eslint-disable-line camelcase
 
-accountsRouter.get('/', requiredAuth, async (req, res) => {
+accountsRouter.get('/', async (req, res) => {
   const { userId } = req.session;
 
   const userAccounts = await getAccountsByUserId(userId);
@@ -17,31 +16,31 @@ accountsRouter.get('/', requiredAuth, async (req, res) => {
   res.send(accountsData);
 });
 
-accountsRouter.post('/', requiredAuth, async (req, res) => {
+accountsRouter.post('/', async (req, res) => {
   const { userId } = req.session;
   const { service, login, password } = req.body;
 
-  const createdAccount = await addNewAccount(userId, service, login, password);
+  const createdAccount = await addNewAccount(userId, { service, login, password });
   const accountData = removeUserId(createdAccount);
   res.status(201).send(accountData);
 });
 
-accountsRouter.get('/:id', requiredAuth, async (req, res) => {
+accountsRouter.get('/:id', async (req, res) => {
   const { userId } = req.session;
   const { id: accountId } = req.params;
 
   const account = await getUserAccountById(userId, accountId);
 
   if (!account) {
-    res.status(404).send('Аккаунт не найден!');
+    res.status(404).send({ error: 'Account not found' });
     return;
   }
 
-  const accountInfo = removeUserId(account);
-  res.send(accountInfo);
+  const accountData = removeUserId(account);
+  res.send(accountData);
 });
 
-accountsRouter.put('/:id', requiredAuth, async (req, res) => {
+accountsRouter.put('/:id', async (req, res) => {
   const { userId } = req.session;
   const { id: accountId } = req.params;
   const newData = req.body;
@@ -49,33 +48,35 @@ accountsRouter.put('/:id', requiredAuth, async (req, res) => {
   const account = await getUserAccountById(userId, accountId);
 
   if (!account) {
-    res.status(404).send('Аккаунт не найден!');
+    res.status(404).send({ error: 'Account not found' });
     return;
   }
 
-  const service = newData.service || account.service;
-  const login = newData.login || account.login;
-  const password = newData.password || account.password;
+  const newAccountData = {
+    service: newData.service || account.service,
+    login: newData.login || account.login,
+    password: newData.password || account.password,
+  };
 
-  await updateAccount(accountId, service, login, password);
+  await updateAccount(accountId, newAccountData);
 
-  res.send(`Аккаунт ${accountId} обновлен`);
+  res.send(newAccountData);
 });
 
-accountsRouter.delete('/:id', requiredAuth, async (req, res) => {
+accountsRouter.delete('/:id', async (req, res) => {
   const { userId } = req.session;
   const { id: accountId } = req.params;
 
   const account = await getUserAccountById(userId, accountId);
 
   if (!account) {
-    res.status(404).send('Аккаунт не найден!');
+    res.status(404).send({ error: 'Account not found' });
     return;
   }
 
   await deleteAccount(accountId);
 
-  res.status(204).send('Аккаунт успешно удален!');
+  res.status(204).send();
 });
 
 export default accountsRouter;

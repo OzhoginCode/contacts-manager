@@ -47,7 +47,7 @@ const getUserAccountById = async (userId, accountId) => {
   return account;
 };
 
-const addNewAccount = async (userId, service, login, password) => {
+const addNewAccount = async (userId, { service, login, password }) => {
   const result = await client.query(
     'INSERT INTO accounts (user_id, service, login, password) VALUES ($1, $2, $3, $4) RETURNING *',
     [userId, service, login, password],
@@ -56,7 +56,7 @@ const addNewAccount = async (userId, service, login, password) => {
   return createdAccount;
 };
 
-const updateAccount = async (id, service, login, password) => {
+const updateAccount = async (id, { service, login, password }) => {
   const result = await client.query(
     'UPDATE accounts SET service = $1, login = $2, password = $3 WHERE id = $4',
     [service, login, password, id],

@@ -6,7 +6,7 @@ import encrypt from '../src/encrypt.js';
 const sessionsRouter = express.Router();
 
 sessionsRouter.post('/', async (req, res) => {
-  const { login, password } = req.body;
+  const { login = '', password = '' } = req.body;
   const user = await getUserByLogin(login);
   if (!user || (user.password_digest !== encrypt(password))) {
     res.status(422);
@@ -20,7 +20,7 @@ sessionsRouter.post('/', async (req, res) => {
 
 sessionsRouter.delete('/', (req, res) => {
   req.session.destroy(() => {
-    res.status(204).send('Пользователь разлогинен');
+    res.status(204).send();
   });
 });
 
