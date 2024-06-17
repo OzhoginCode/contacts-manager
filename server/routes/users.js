@@ -1,9 +1,9 @@
 import express from 'express';
 
-import requiredAuth from '../middlwares/index.js';
+import { requiredAuth, validateSession } from '../middlwares/index.js';
 import encrypt from '../src/encrypt.js';
 import {
-  getUserById, getUserByLogin, createUser, updateUser, deleteUser,
+  getUserByLogin, createUser, updateUser, deleteUser,
 } from '../src/dbQueries.js';
 
 const usersRouter = express.Router();
@@ -40,7 +40,7 @@ usersRouter.post('/', async (req, res) => {
   res.status(201).send({ login, id: user.id });
 });
 
-usersRouter.get('/current', async (req, res) => {
+usersRouter.get('/current', validateSession, async (req, res) => {
   const { userId } = req.session;
 
   if (!userId) {
@@ -48,28 +48,14 @@ usersRouter.get('/current', async (req, res) => {
     return;
   }
 
-  const user = await getUserById(userId);
-  if (!user) {
-    req.session.destroy(() => {
-      res.status(404).send('Пользователь не найден!');
-    });
-    return;
-  }
+  const { user } = req;
   const userInfo = { id: user.id, login: user.login, isGuest: false };
   res.send(userInfo);
 });
 
-usersRouter.put('/current', requiredAuth, async (req, res) => {
-  const { userId } = req.session;
+usersRouter.put('/current', requiredAuth, validateSession, async (req, res) => {
   const newData = req.body;
-
-  const user = await getUserById(userId);
-  if (!user) {
-    req.session.destroy(() => {
-      res.status(404).send('Пользователь не найден!');
-    });
-    return;
-  }
+  const { user } = req;
 
   const login = newData.login || user.login;
   const passwordDigest = newData.password
@@ -79,29 +65,21 @@ usersRouter.put('/current', requiredAuth, async (req, res) => {
   const errors = await validate(login, passwordDigest);
   if (Object.keys(errors).length) {
     res.status(422);
-    res.send({ form: { login, passwordDigest }, errors });
+    res.send({ form: { login, password: newData.password }, errors });
     return;
   }
 
-  await updateUser(userId, login, passwordDigest);
-  res.send({ id: userId, login });
+  await updateUser(user.id, login, passwordDigest);
+  res.send({ id: user.id, login });
 });
 
-usersRouter.delete('/current', requiredAuth, async (req, res) => {
+usersRouter.delete('/current', requiredAuth, validateSession, async (req, res) => {
   const { userId } = req.session;
-
-  const user = await getUserById(userId);
-  if (!user) {
-    req.session.destroy(() => {
-      res.status(404).send('Пользователь не найден!');
-    });
-    return;
-  }
 
   await deleteUser(userId);
 
   req.session.destroy(() => {
-    res.status(204).send('Аккаунт успешно удален!');
+    res.status(204).send();
   });
 });
 

@@ -7,6 +7,7 @@ import client from './db.js';
 import accountsRouter from './routes/accounts.js';
 import usersRouter from './routes/users.js';
 import sessionsRouter from './routes/sessions.js';
+import { requiredAuth, validateSession } from './middlwares/index.js';
 
 export default () => {
   const app = new Express();
@@ -25,9 +26,9 @@ export default () => {
     },
   }));
 
-  app.use('/accounts', accountsRouter);
   app.use('/users', usersRouter);
   app.use('/sessions', sessionsRouter);
+  app.use('/accounts', requiredAuth, validateSession, accountsRouter);
 
   app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     console.error(err.stack);
