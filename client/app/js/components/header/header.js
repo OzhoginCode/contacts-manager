@@ -65,7 +65,7 @@ export const Header = {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="button button-grey" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="button button-purple">Save changes</button>
+                        <button type="submit" class="button button-purple">Save changes</button>
                       </div>
                     </form>
                   </div>
@@ -86,7 +86,7 @@ export const Header = {
                       Are you sure?
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="button button-grey" data-bs-dismiss="modal">Yes</button>
+                      <button type="button" id="exitButton"  class="button button-grey" data-bs-dismiss="modal">Yes</button>
                       <button type="button" class="button button-purple">No</button>
                     </div>
                   </div>
