@@ -24,8 +24,8 @@ export const NewEntrySection = {
         aria-hidden="true"
       >
         <div class="modal-dialog modal-dialog-centered">
-          <form id="addNewEntry">
-            <div class="modal-content">
+          <div class="modal-content"> 
+            <form id="addNewEntry">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="passwordAddModalLabel">
                   Add New Entry
@@ -40,7 +40,7 @@ export const NewEntrySection = {
               <div class="modal-body">
                 <div class="form-floating mb-3">
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     id="floatingInput3"
                     placeholder="name@example.com"
@@ -51,7 +51,7 @@ export const NewEntrySection = {
                 </div>
                 <div class="form-floating mb-3">
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     id="floatingInput4"
                     placeholder="name@example.com"
@@ -86,7 +86,6 @@ export const NewEntrySection = {
                   <label for="floatingPassword5">Repeat Password</label>
                 </div>
               </div>
-
               <div class="modal-footer">
                 <button 
                   type="submit"
@@ -103,8 +102,8 @@ export const NewEntrySection = {
                   Close
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     `;

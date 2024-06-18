@@ -55,20 +55,24 @@ export const EntriesListSection = {
                 <div class="modal-body">
                   <div class="form-floating mb-3">
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       id="floatingInput5"
+                      name="source"
                       placeholder="name@example.com"
+                      required
                     />
                     <label for="floatingInput5">Source example.com</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       id="floatingInput6"
                       placeholder="name@example.com"
+                      name="username"
                       autocomplete="on"
+                      required
                     />
                     <label for="floatingInput6">Username</label>
                   </div>
@@ -78,7 +82,9 @@ export const EntriesListSection = {
                       class="form-control"
                       id="floatingPassword6"
                       placeholder="Password"
+                      name="password"
                       autocomplete="new-password"
+                      required
                     />
                     <label for="floatingPassword6">Password</label>
                   </div>
@@ -88,7 +94,9 @@ export const EntriesListSection = {
                       class="form-control"
                       id="floatingPassword7"
                       placeholder="Password"
+                      name="repeat_password"
                       autocomplete="new-password"
+                      required
                     />
                     <label for="floatingPassword7">Repeat Password</label>
                   </div>
@@ -101,7 +109,7 @@ export const EntriesListSection = {
                   >
                     Close
                   </button>
-                  <button type="button" class="button button-purple">
+                  <button type="submit" class="button button-purple">
                     Save changes
                   </button>
                 </div>
