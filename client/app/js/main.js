@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const footer = Footer.create();
   Footer.init(footer);
   app.appendChild(footer);
+
+  App.renderHomePage(App.state);
 });
 
 // svg

@@ -109,8 +109,12 @@ export const EntriesListSection = {
                   >
                     Close
                   </button>
-                  <button type="submit" class="button button-purple">
-                    Save changes
+                  <button
+                    type="submit"
+                    data-bs-dismiss="modal"
+                    class="button button-purple"
+                  >
+                      Save changes
                   </button>
                 </div>
                 </form>
@@ -157,7 +161,13 @@ export const EntriesListSection = {
                   >
                     Yes
                   </button>
-                  <button type="button" class="button button-purple">No</button>
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    class="button button-purple"
+                  >
+                    No
+                  </button>
                 </div>
               </div>
             </div>

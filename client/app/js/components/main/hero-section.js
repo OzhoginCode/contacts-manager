@@ -62,7 +62,12 @@ export const HeroSection = {
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="button button-purple" type="submit" id="selectUser">
+                    <button
+                      class="button button-purple"
+                      type="submit"
+                      id="selectUser"
+                      data-bs-dismiss="modal"  
+                    >
                       Login
                     </button>
                     <p>Still not with us?</p>
@@ -140,7 +145,13 @@ export const HeroSection = {
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="button button-purple" type="submit">Create account</button>
+                    <button
+                      class="button button-purple"
+                      type="submit"
+                      data-bs-dismiss="modal"  
+                    >
+                      Create account
+                    </button>
                     <p>or</p>
                     <button
                       class="button button-grey"
