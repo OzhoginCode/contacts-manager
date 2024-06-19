@@ -1,15 +1,37 @@
 import axios from 'axios';
 
 const renderHomePage = (state) => {
-  const signInButton = document.querySelector('#exampleModalToggleLabel');
-  signInButton.textContent = state.currentUser;
+  const signInButton = document.querySelector('#header__signin');
+  const userButton = document.querySelector('#header__user-button');
+  const exitButton = document.querySelector('#header__exit-button');
+  const heroSection = document.querySelector('#hero-section');
+  const newEntrySection = document.querySelector('#new-entry-section');
+  const entriesListSection = document.querySelector('#entries-list');
+
+  if (state.currentUser.isGuest) {
+    heroSection.style.display = 'flex';
+    newEntrySection.style.display = 'none';
+    entriesListSection.style.display = 'none';
+    signInButton.style.display = 'block';
+    userButton.style.display = 'none';
+    exitButton.style.display = 'none';
+  } else {
+    heroSection.style.display = 'none';
+    newEntrySection.style.display = 'flex';
+    entriesListSection.style.display = 'block';
+    signInButton.style.display = 'none';
+    userButton.style.display = 'block';
+    userButton.textContent = state.currentUser.login;
+    exitButton.style.display = 'block';
+  }
 };
+
 const addNewUser = async (newUser) => {
   try {
     const response = await axios.post('/api/users/', newUser);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 const loginUser = async (user) => {
@@ -17,7 +39,7 @@ const loginUser = async (user) => {
     const response = await axios.post('api/sessions/', user);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 
@@ -26,7 +48,7 @@ const addNewEntry = async (newEntry) => {
     const response = await axios.post('/api/accounts/', newEntry);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 const editUserAccount = async (newData) => {
@@ -34,7 +56,7 @@ const editUserAccount = async (newData) => {
     const response = await axios.put('/api/users/current/', newData);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 const entryEdit = async (newData, accountId) => {
@@ -42,7 +64,7 @@ const entryEdit = async (newData, accountId) => {
     const response = await axios.put(`/api//accounts/${accountId}`, newData);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 const getAccounts = async (state) => {
@@ -51,7 +73,7 @@ const getAccounts = async (state) => {
     state.accaunts = response.data;
     return response.data;
   } catch (err) {
-    console.error(err.toJSON())
+    console.error(err.toJSON());
   }
 };
 
@@ -118,14 +140,18 @@ const app = async () => {
     const password = formData.get('password');
     const repeat_password = formData.get('repeat_password');
     if (password === repeat_password) {
-      const addNewEntryResp = await addNewEntry({ service: service, login: username, password: password });
+      const addNewEntryResp = await addNewEntry({
+        service: service,
+        login: username,
+        password: password,
+      });
       state.accaunts.push(addNewEntryResp);
       renderHomePage(state);
       console.log(state);
     }
   };
 
-  const editUserAccountHandler  = async (e) => {
+  const editUserAccountHandler = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
@@ -133,7 +159,10 @@ const app = async () => {
     const newPasword = formData.get('password');
     const repeat_password = formData.get('repeat_password');
     if (newPasword === repeat_password) {
-      const editUserResp = await editUserAccount({ login: newLogin, password: newPasword });
+      const editUserResp = await editUserAccount({
+        login: newLogin,
+        password: newPasword,
+      });
       state.currentUser = { login: newLogin, password: newPasword };
       renderHomePage(state);
     }
@@ -149,21 +178,27 @@ const app = async () => {
     const username = formData.get('username');
     const password = formData.get('password');
     const repeat_password = formData.get('repeat_password');
-    // const accountId = 
+    // const accountId =
     if (password === repeat_password) {
-      const addNewEntryResp = await entryEdit({ service: service, login: username, password: password }, accountId);
+      const addNewEntryResp = await entryEdit(
+        { service: service, login: username, password: password },
+        accountId
+      );
       state.accaunts.push(addNewEntryResp);
       renderHomePage(state);
       console.log(state);
     }
-  }
-
+  };
 
   // document.addEventListener('load', () => getCurrentUser(state));
-  elements.createUserForm.addEventListener('submit', (e) => createUserHandler(e));
+  elements.createUserForm.addEventListener('submit', (e) =>
+    createUserHandler(e)
+  );
   elements.loginUserForm.addEventListener('submit', (e) => loginUserHandler(e));
   elements.addNewEntry.addEventListener('submit', (e) => addEntryHandler(e));
-  elements.editUserAccount.addEventListener('submit', (e) => editUserAccountHandler(e));
+  elements.editUserAccount.addEventListener('submit', (e) =>
+    editUserAccountHandler(e)
+  );
   elements.exitButton.addEventListener('click', () => {
     axios.delete('/api/sessions/');
     state.currentUser = { isGuest: true };
@@ -179,15 +214,15 @@ const app = async () => {
       renderHomePage(state);
       console.log(state);
     } catch (err) {
-      console.error(err.toJSON())
+      console.error(err.toJSON());
     }
   };
   getCurrentUser(state);
   // if (state.currentUser.isGuest === false) {
-    const resp = await getAccounts(state);
-    renderHomePage(state);
+  const resp = await getAccounts(state);
+  renderHomePage(state);
   // }
   console.log(state);
 };
 
-export { app };
+export { app, renderHomePage, state };

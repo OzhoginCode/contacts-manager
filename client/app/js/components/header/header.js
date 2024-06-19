@@ -1,3 +1,5 @@
+import * as App from '#js/app.js';
+
 export const Header = {
   tagName: 'header-component',
 
@@ -24,7 +26,6 @@ export const Header = {
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
             </ul>
 
@@ -65,7 +66,7 @@ export const Header = {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="button button-grey" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="button button-purple">Save changes</button>
+                        <button type="submit" class="button button-purple" data-bs-dismiss="modal">Save changes</button>
                       </div>
                     </form>
                   </div>
@@ -87,7 +88,7 @@ export const Header = {
                     </div>
                     <div class="modal-footer">
                       <button type="button" id="exitButton"  class="button button-grey" data-bs-dismiss="modal">Yes</button>
-                      <button type="button" class="button button-purple">No</button>
+                      <button type="button" class="button button-purple" data-bs-dismiss="modal">No</button>
                     </div>
                   </div>
                 </div>
