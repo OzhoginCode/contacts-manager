@@ -10,10 +10,6 @@ import heroIcon from '#icons/hero.svg';
 import newEntryIcon from '#icons/new-entry-icon.svg';
 import signinIcon from '#icons/signin-icon.svg';
 import exitIcon from '#icons/exit-icon.svg';
-import userIcon from '#icons/user-icon.svg';
-import editIcon from '#icons/edit-icon.svg';
-import deleteIcon from '#icons/delete-icon.svg';
-import showIcon from '#icons/show-icon.svg';
 
 import * as App from '#js/app.js';
 
@@ -34,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const footer = Footer.create();
   Footer.init(footer);
   app.appendChild(footer);
-
-  App.renderHomePage(App.state);
 });
 
 // svg
@@ -88,36 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
   signinHeroImg.className = 'button__icon';
   const signinButton = document.getElementById('hero-section__signin');
   signinButton.insertBefore(signinHeroImg, signinButton.firstChild);
-
-  const userImg = document.createElement('img');
-  userImg.src = userIcon;
-  userImg.alt = 'User Icon';
-  userImg.className = 'button__icon';
-  const userButton = document.getElementById('header__user-button');
-  userButton.insertBefore(userImg, userButton.firstChild);
-
-  const editImg = document.createElement('img');
-  editImg.src = editIcon;
-  editImg.alt = 'Edit Icon';
-  editImg.className = 'button__icon';
-  const editButton = document.getElementById('edit-button');
-  editButton.insertBefore(editImg, editButton.firstChild);
-
-  const deleteImg = document.createElement('img');
-  deleteImg.src = deleteIcon;
-  deleteImg.alt = 'Delete Icon';
-  deleteImg.className = 'button__icon';
-  const deleteButton = document.getElementById('delete-button');
-  deleteButton.insertBefore(deleteImg, deleteButton.firstChild);
-
-  const showImg = document.createElement('img');
-  showImg.src = showIcon;
-  showImg.alt = 'Show Icon';
-  showImg.className = 'button__icon';
-  const showButton = document.getElementById('show-button');
-  showButton.insertBefore(showImg, showButton.firstChild);
 });
 
 document.addEventListener('DOMContentLoaded', function () {
   App.app();
+  App.renderHomePage(App.state);
 });

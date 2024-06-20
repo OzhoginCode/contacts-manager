@@ -1,5 +1,3 @@
-import * as App from '#js/app.js';
-
 export const Header = {
   tagName: 'header-component',
 
@@ -40,39 +38,34 @@ export const Header = {
               </button>
             
               <button type="button" id="header__user-button" class="button" data-bs-toggle="modal" data-bs-target="#userModal">
-                User@expample.com
+                
               </button>
               <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <form id="userModalForm">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="userModalLabel">Edit User Account</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <form id="userModalForm">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="userModalLabel">Edit User Account</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="editUserEmail" placeholder="name@example.com" name="email" required="" value="" autocomplete="on">
+                        <label for="editUserEmail">Email address</label>
                       </div>
-                      <div class="modal-body">
-                        <div class="form-floating mb-3">
-                          <input type="email" class="form-control" id="editUserEmail" placeholder="name@example.com" name="email" required="" value="name@example.com" autocomplete="on">
-                          <label for="editUserEmail">Email address</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                          <input type="password" class="form-control" id="userModalPassword" name="password" placeholder="Password" value="p@$$WD40" autocomplete="current-password">
-                          <label for="userModalPassword">Password</label>
-                        </div>
-                        <div class="form-floating">
-                          <input type="password" class="form-control" id="userModalPasswordRepeat" placeholder="Password" name="repeat_password" required="" value="p@$$WD40" autocomplete="current-password">
-                          <label for="userModalPasswordRepeat">Repeat Password</label>
-                        </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="userModalPassword" name="password" placeholder="Password" value="" autocomplete="current-password">
+                        <label for="userModalPassword">Password</label>
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="button button-grey" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="button button-purple" data-bs-dismiss="modal">Save changes</button>
-                      </div>
-                    </form>
-                  </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="button button-grey" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="button button-purple" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-
+              </div>
               <button type="button" id="header__exit-button" class="button" data-bs-toggle="modal" data-bs-target="#exitModal">
                 Exit
               </button>
