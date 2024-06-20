@@ -45,49 +45,57 @@ export const NewEntrySection = {
                   <input
                     type="text"
                     class="form-control"
-                    id="floatingInput3"
+                    id="newEntrySource"
                     placeholder="name@example.com"
                     name="source"
                     required
                   />
-                  <label for="floatingInput3">Source example.com</label>
+                  <label for="newEntrySource">Source example.com</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
                     type="text"
                     class="form-control"
-                    id="floatingInput4"
+                    id="newEntryUsername"
                     placeholder="name@example.com"
                     name="username"
                     autocomplete="on"
                     required
                   />
-                  <label for="floatingInput4">Username</label>
+                  <label for="newEntryUsername">Username</label>
                 </div>
                 <div class="form-floating mb-3">
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword4"
+                    id="newEntryPassword"
                     placeholder="Password"
                     name="password"
                     autocomplete="on"
                     required
                   />
-                  <label for="floatingPassword4">Password</label>
+                  <label for="newEntryPassword">Password</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input
                     type="password"
                     class="form-control"
-                    id="floatingPassword5"
+                    id="newEntryPasswordRepeat"
                     placeholder="Password"
                     name="repeat_password"
                     autocomplete="on"
                     required
                   />
-                  <label for="floatingPassword5">Repeat Password</label>
+                  <label for="newEntryPasswordRepeat">Repeat Password</label>
                 </div>
+                
+                <button
+                  id="generate-password"
+                  type="button"
+                  class="button button-green"
+                >
+                  Generate Password
+                </button>
               </div>
               <div class="modal-footer">
                 <button 
