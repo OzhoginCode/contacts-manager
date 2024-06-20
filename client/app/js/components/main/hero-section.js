@@ -9,13 +9,11 @@ export const HeroSection = {
     heroSection.innerHTML = `
       <section id="hero-mobile" class="hero-section__mobile"></section>
       <section id="hero-desktop" class="hero-section__desktop"></section>
-      
       <div class="hero-container">
         <section class="hero-section__slogan">
           <h1>The Most Ultimate Password Manager</h1>
         </section>
         <section>
-        
           <div
             class="modal fade"
             id="exampleModalToggle"
@@ -83,8 +81,6 @@ export const HeroSection = {
               </form>
             </div>
           </div>
-        
-        
           <div
             class="modal fade"
             id="exampleModalToggle2"
