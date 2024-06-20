@@ -8,8 +8,6 @@ export const EntriesListSection = {
     return entriesListSection;
   },
 
-  init(entriesListSection) {},
-
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);
   },

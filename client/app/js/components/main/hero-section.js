@@ -1,3 +1,7 @@
+import logoIcon from '#icons/logo.svg';
+import heroIcon from '#icons/hero.svg';
+import signinIcon from '#icons/signin-icon.svg';
+
 export const HeroSection = {
   tagName: 'hero-section-component',
 
@@ -7,8 +11,12 @@ export const HeroSection = {
     heroSection.id = 'hero-section';
 
     heroSection.innerHTML = `
-      <section id="hero-mobile" class="hero-section__mobile"></section>
-      <section id="hero-desktop" class="hero-section__desktop"></section>
+      <section id="hero-mobile" class="hero-section__mobile">
+        <img src="${logoIcon}" alt="passWD40 logo" class="hero-section__mobile">
+      </section>
+      <section id="hero-desktop" class="hero-section__desktop">
+        <img src="${heroIcon}" alt="passWD40 logo" class="hero-section__desktop">
+      </section>
       <div class="hero-container">
         <section class="hero-section__slogan">
           <h1>The Most Ultimate Password Manager</h1>
@@ -73,6 +81,7 @@ export const HeroSection = {
                       class="button button-grey"
                       data-bs-target="#exampleModalToggle2"
                       data-bs-toggle="modal"
+                      type="button"
                     >
                       Create account
                     </button>
@@ -153,6 +162,7 @@ export const HeroSection = {
                       class="button button-grey"
                       data-bs-target="#exampleModalToggle"
                       data-bs-toggle="modal"
+                      type="button"
                     >
                       Back to Login
                     </button>
@@ -167,6 +177,7 @@ export const HeroSection = {
             data-bs-target="#exampleModalToggle"
             data-bs-toggle="modal"
           >
+            <img src="${signinIcon}" class="button__icon" alt="Signin Icon"></img>
             Sign in
           </button>
         </section>
@@ -174,8 +185,6 @@ export const HeroSection = {
     `;
     return heroSection;
   },
-
-  init(heroSection) {},
 
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);
