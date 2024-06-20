@@ -1,4 +1,4 @@
-// Import our custom CSS
+import * as bootstrap from 'bootstrap';
 import '#scss/styles.scss';
 
 import { Header } from '#js/components/header/header.js';
@@ -13,11 +13,8 @@ import exitIcon from '#icons/exit-icon.svg';
 
 import app from '#js/app.js';
 
-// Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap';
-
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root'); // change
+  const root = document.getElementById('root');
 
   const header = Header.create();
   Header.init(header);
@@ -85,5 +82,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   app()
 });
-
-// document.addEventListener('DOMContentLoaded', () => );
