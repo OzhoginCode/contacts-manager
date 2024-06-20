@@ -22,8 +22,6 @@ export const Main = {
     return main;
   },
 
-  init(main) {},
-
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);
   },

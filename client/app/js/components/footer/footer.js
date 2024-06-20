@@ -13,8 +13,6 @@ export const Footer = {
     return footer;
   },
 
-  init(footer) {},
-
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);
   },
