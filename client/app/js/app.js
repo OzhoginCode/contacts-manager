@@ -91,75 +91,74 @@ const renderHomePage = (state) => {
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-              <form id="passwordEditModalForm${entry.id}">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="passwordEditModalLabel${entry.id}">
-                    Edit entry
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="floatingInput5"
-                      name="source"
-                      placeholder="name@example.com"
-                      required
-                      value="${itemSource}"
-                    />
-                    <label for="floatingInput5">Source example.com</label>
+                <form id="passwordEditModalForm${entry.id}">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="passwordEditModalLabel${entry.id}">
+                      Edit entry
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
                   </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="floatingInput6"
-                      placeholder="name@example.com"
-                      name="username"
-                      autocomplete="on"
-                      required
-                      value="${itemUsername}"
-                    />
-                    <label for="floatingInput6">Username</label>
+                  <div class="modal-body">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInput5"
+                        name="source"
+                        placeholder="name@example.com"
+                        required
+                        value="${itemSource}"
+                      />
+                      <label for="floatingInput5">Source example.com</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingInput6"
+                        placeholder="name@example.com"
+                        name="username"
+                        autocomplete="on"
+                        required
+                        value="${itemUsername}"
+                      />
+                      <label for="floatingInput6">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingPassword6"
+                        placeholder="Password"
+                        name="password"
+                        autocomplete="new-password"
+                        required
+                        value="${itemPassword}"
+                      />
+                      <label for="floatingPassword6">Password</label>
+                    </div>
                   </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="floatingPassword6"
-                      placeholder="Password"
-                      name="password"
-                      autocomplete="new-password"
-                      required
-                      value="${itemPassword}"
-                    />
-                    <label for="floatingPassword6">Password</label>
-                  </div>
-                  
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="button button-grey"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="submit"
-                    data-bs-dismiss="modal"
-                    class="button button-purple"
-                  >
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="button button-grey"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="submit"
+                      data-bs-dismiss="modal"
+                      class="button button-purple"
+                    >
                       Save changes
-                  </button>
-                </div>
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -281,20 +280,25 @@ const renderHomePage = (state) => {
   }
 };
 
-const addNewUser = async (newUser) => {
+const createUser = async (newUser) => {
   try {
     const response = await axios.post('/api/users/', newUser);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON());
+    if (err.toJSON().status == 422) {
+      alert('The same user already exsist');
+    }
   }
 };
+
 const loginUser = async (user) => {
   try {
     const response = await axios.post('api/sessions/', user);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON());
+    if (err.toJSON().status == 422) {
+      alert('Incorrect username or password');
+    }
   }
 };
 
@@ -303,32 +307,48 @@ const addNewEntry = async (newEntry) => {
     const response = await axios.post('/api/accounts/', newEntry);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON());
+    if (err.toJSON().status == 401) {
+      alert('Sign in for add record');
+    }
   }
 };
+
 const editUserAccount = async (newData) => {
   try {
     const response = await axios.put('/api/users/current/', newData);
-    return response.data;
+    return response;
   } catch (err) {
-    console.error(err.toJSON());
+    if (err.toJSON().status == 401) {
+      alert('Sign in for edit account');
+    }
   }
 };
+
 const entryEdit = async (newData, accountId) => {
   try {
     const response = await axios.put(`/api/accounts/${accountId}`, newData);
     return response.data;
   } catch (err) {
-    console.error(err.toJSON());
+    alret(err.toJSON().status);
   }
 };
+
+const entryDelete = async () => {
+  try {
+    const response = await axios.delete(`/api//accounts/${accountId}`);
+    return response.data;
+  } catch (err) {
+    alret(err.toJSON().status);
+  }
+};
+
 const getAccounts = async (state) => {
   try {
     const response = await axios.get('/api/accounts/');
     state.accounts = response.data;
     return response.data;
   } catch (err) {
-    console.error(err.toJSON());
+    alret(err.toJSON().status);
   }
 };
 
@@ -353,8 +373,35 @@ const app = async () => {
     addNewEntry: document.querySelector('#addNewEntry'),
     editUserAccount: document.querySelector('#userModalForm'),
     exitButton: document.querySelector('#exitButton'),
-    entryEdit: document.querySelector('#passwordEditModalForm'),
+    // entryEdit: document.querySelectorAll('.some_modal_class'),
+    // entryDelete: document.querySelectorAll('.some_modal_class'),
+    // entryShow: document.querySelectorAll('.some_modal_class'),
+    editLogin: document.querySelector('#editUserEmail'),
+    editButton: document.querySelector('#header__user-button'),
   };
+
+  const createUserHandler = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const repeat_password = formData.get('repeat_password');
+    if (password === repeat_password) {
+      state.createUserForm.email = email;
+      state.createUserForm.password = password;
+      const addUserResp = await createUser({
+        login: email,
+        password: password,
+      });
+      const loginResp = await loginUser({ login: email, password: password });
+      state.currentUser = loginResp;
+    }
+    renderHomePage(state);
+    console.log(state);
+    form.reset();
+  };
+
   const loginUserHandler = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -370,22 +417,7 @@ const app = async () => {
     renderHomePage(state);
     form.reset();
   };
-  const createUserHandler = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const repeat_password = formData.get('repeat_password');
-    if (password === repeat_password) {
-      state.createUserForm.email = email;
-      state.createUserForm.password = password;
-    }
-    const addUserResp = await addNewUser({ login: email, password: password });
-    renderHomePage(state);
-    console.log(state);
-    form.reset();
-  };
+
   const addEntryHandler = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -403,12 +435,15 @@ const app = async () => {
       state.accounts.push(addNewEntryResp);
       renderHomePage(state);
       console.log(state);
+      form.reset();
     }
   };
 
   const editUserAccountHandler = async (e) => {
     e.preventDefault();
-    const form = e.target;
+    const form = e.target; //placeholder = state.currentUser.login
+    // state.currentUser.login ;
+    // console.log(elements.editLogin.placeholder);
     const formData = new FormData(form);
     const newLogin = formData.get('email');
     const newPasword = formData.get('password');
@@ -418,7 +453,9 @@ const app = async () => {
         login: newLogin,
         password: newPasword,
       });
-      state.currentUser = { login: newLogin, password: newPasword };
+      if (editUserResp) {
+        state.currentUser = { login: newLogin, password: newPasword };
+      }
       renderHomePage(state);
     }
     console.log(state);
@@ -433,11 +470,11 @@ const app = async () => {
     const username = formData.get('username');
     const password = formData.get('password');
     const repeat_password = formData.get('repeat_password');
-    // const accountId =
+    const accountId = e.target.someAthribute;
     if (password === repeat_password) {
       const addNewEntryResp = await entryEdit(
-        { service: service, login: username, password: password }
-        // accountId
+        { service: service, login: username, password: password },
+        accountId
       );
       state.accounts.push(addNewEntryResp);
       renderHomePage(state);
@@ -445,7 +482,18 @@ const app = async () => {
     }
   };
 
-  // document.addEventListener('load', () => getCurrentUser(state));
+  const entryDeleteHandler = async (e) => {
+    e.preventDefault();
+    const accountId = e.target.someAthribute;
+    const addNewEntryResp = await entryDelete(
+      { service: service, login: username, password: password },
+      accountId
+    );
+    const resp = await getAccounts(state);
+    renderHomePage(state);
+    console.log(state);
+  };
+
   elements.createUserForm.addEventListener('submit', (e) =>
     createUserHandler(e)
   );
@@ -454,12 +502,20 @@ const app = async () => {
   elements.editUserAccount.addEventListener('submit', (e) =>
     editUserAccountHandler(e)
   );
-  elements.exitButton.addEventListener('click', () => {
-    axios.delete('/api/sessions/');
+  // elements.entryEdit.addEventListener('submit', (e) => editEntryHandler(e));
+  // elements.entryDelete.addEventListener('click', (e) => entryDeleteHandler(e));
+  // elements.entryShow.addEventListener('click', (e) => entryShowHandler(e));
+  elements.editButton.addEventListener('click', () => {
+    console.log(111);
+    elements.editLogin.value = state.currentUser.login;
+  });
+  elements.exitButton.addEventListener('click', async () => {
+    const response = await axios.delete('/api/sessions/');
     state.currentUser = { isGuest: true };
     renderHomePage(state);
     return response.data;
   });
+
   elements.entryEdit.addEventListener('submit', (e) => editEntryHandler(e));
 
   const getCurrentUser = async (state) => {
@@ -469,14 +525,14 @@ const app = async () => {
       renderHomePage(state);
       console.log(state);
     } catch (err) {
-      console.error(err.toJSON());
+      alret(err.toJSON().status);
     }
   };
   getCurrentUser(state);
-  // if (state.currentUser.isGuest === false) {
-  const resp = await getAccounts(state);
-  renderHomePage(state);
-  // }
+  if (state.currentUser.isGuest === false) {
+    const resp = await getAccounts(state);
+    renderHomePage(state);
+  }
   console.log(state);
 };
 
