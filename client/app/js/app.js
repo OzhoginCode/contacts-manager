@@ -6,6 +6,7 @@ import deleteIcon from '#icons/delete-icon.svg';
 import showIcon from '#icons/show-icon.svg';
 
 const renderHomePage = (state) => {
+  console.log(state);
   const signInButton = document.querySelector('#header__signin');
   const userButton = document.querySelector('#header__user-button');
   const exitButton = document.querySelector('#header__exit-button');
@@ -13,20 +14,12 @@ const renderHomePage = (state) => {
   const newEntrySection = document.querySelector('#new-entry-section');
   const entriesListSection = document.querySelector('#entries-list');
   const editUserEmail = document.querySelector('#editUserEmail');
-  const userModalPassword = document.querySelector('#userModalPassword');
 
-  editUserEmail.value = state.loginUserForm.email;
-  userModalPassword.value = state.loginUserForm.password;
+  editUserEmail.value = state.currentUser.login;
 
-  while (entriesListSection.firstChild) {
-    entriesListSection.removeChild(entriesListSection.firstChild);
-  }
+  entriesListSection.innerHTML = '';
 
-  console.log(
-    `var isGuest from state.currentUser is ${state.currentUser.isGuest}`
-  ); // why undefined on first boot?
-
-  if (state.currentUser.isGuest || state.currentUser.isGuest === 'undefined') {
+  if (state.currentUser.isGuest) {
     heroSection.style.display = 'flex';
     newEntrySection.style.display = 'none';
     entriesListSection.style.display = 'none';
@@ -48,23 +41,23 @@ const renderHomePage = (state) => {
   }
 
   if (state.accounts.length > 0) {
-    state.accounts.forEach((entry) => {
+    state.accounts.forEach((entry, index) => {
+      const { service, login, password } = entry;
+      const id = index + 1;
+
       const entryItem = document.createElement('li');
-      entryItem.id = `entry-item-${entry.id}`;
+      entryItem.id = `entry-item-${id}`;
       entryItem.className = 'entry-item section';
-      const itemSource = entry.service;
-      const itemUsername = entry.login;
-      const itemPassword = entry.password;
 
       entryItem.innerHTML = `
-        <p class="rate-number" id="rate-number">${entry.id}</p>
+        <p class="rate-number" id="rate-number">${id}</p>
         <div>
           <span class="item-name">Source</span>
-          <div class="item-value">${entry.service}</div>
+          <div class="item-value">${service}</div>
         </div>
         <div>
           <span class="item-name">Username</span>
-          <div class="item-value">${entry.login}</div>
+          <div class="item-value">${login}</div>
         </div>
         <div>
           <span class="item-name">Password</span>
@@ -74,26 +67,26 @@ const renderHomePage = (state) => {
         <section class="entry-item-buttons">
           <button
             type="button"
-            id="edit-button${entry.id}"
+            id="edit-button${id}"
             class="button button-edit"
             data-bs-toggle="modal"
-            data-bs-target="#passwordEditModal${entry.id}"
+            data-bs-target="#passwordEditModal${id}"
           >
             <img src="${editIcon}" class="button__icon" alt="edit icon"></img>
             Edit
           </button>
           <div
             class="modal fade"
-            id="passwordEditModal${entry.id}"
+            id="passwordEditModal${id}"
             tabindex="-1"
-            aria-labelledby="passwordEditModalLabel${entry.id}"
+            aria-labelledby="passwordEditModalLabel${id}"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-                <form id="passwordEditModalForm${entry.id}">
+                <form id="passwordEditModalForm${id}">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="passwordEditModalLabel${entry.id}">
+                    <h1 class="modal-title fs-5" id="passwordEditModalLabel${id}">
                       Edit entry
                     </h1>
                     <button
@@ -112,7 +105,7 @@ const renderHomePage = (state) => {
                         name="source"
                         placeholder="name@example.com"
                         required
-                        value="${itemSource}"
+                        value="${service}"
                       />
                       <label for="floatingInput5">Source example.com</label>
                     </div>
@@ -125,7 +118,7 @@ const renderHomePage = (state) => {
                         name="username"
                         autocomplete="on"
                         required
-                        value="${itemUsername}"
+                        value="${login}"
                       />
                       <label for="floatingInput6">Username</label>
                     </div>
@@ -138,7 +131,7 @@ const renderHomePage = (state) => {
                         name="password"
                         autocomplete="new-password"
                         required
-                        value="${itemPassword}"
+                        value="${password}"
                       />
                       <label for="floatingPassword6">Password</label>
                     </div>
@@ -165,25 +158,25 @@ const renderHomePage = (state) => {
           </div>
           <button
             type="button"
-            id="delete-button${entry.id}"
+            id="delete-button${id}"
             class="button button-delete"
             data-bs-toggle="modal"
-            data-bs-target="#passwordDeleteModal${entry.id}"
+            data-bs-target="#passwordDeleteModal${id}"
           >
             <img src="${deleteIcon}" class="button__icon" alt="delete icon"></img>
             Delete
           </button>
           <div
             class="modal fade"
-            id="passwordDeleteModal${entry.id}"
+            id="passwordDeleteModal${id}"
             tabindex="-1"
-            aria-labelledby="passwordDeleteModalLabel${entry.id}"
+            aria-labelledby="passwordDeleteModalLabel${id}"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="passwordDeleteModalLabel${entry.id}">
+                  <h1 class="modal-title fs-5" id="passwordDeleteModalLabel${id}">
                     Danger Zone!
                   </h1>
                   <button
@@ -194,11 +187,11 @@ const renderHomePage = (state) => {
                   ></button>
                 </div>
                 <div class="modal-body">
-                  You want to delete the entry with <strong style="color: #fff">username ${entry.login} for source ${entry.service}</strong>. Are you sure?
+                  You want to delete the entry with <strong style="color: #fff">username ${login} for source ${service}</strong>. Are you sure?
                 </div>
                 <div class="modal-footer">
                   <button
-                    id="passwordDeleteYesButton${entry.id}"
+                    id="passwordDeleteYesButton${id}"
                     type="button"
                     class="button button-grey"
                     data-bs-dismiss="modal"
@@ -218,25 +211,25 @@ const renderHomePage = (state) => {
           </div>
           <button
             type="button"
-            id="show-button${entry.id}"
+            id="show-button${id}"
             class="button button-show"
             data-bs-toggle="modal"
-            data-bs-target="#passwordShowModal${entry.id}"
+            data-bs-target="#passwordShowModal${id}"
           >
             <img src="${showIcon}" class="button__icon" alt="show icon"></img>
             Show
           </button>
           <div
             class="modal fade"
-            id="passwordShowModal${entry.id}"
+            id="passwordShowModal${id}"
             tabindex="-1"
-            aria-labelledby="passwordShowModalLabel${entry.id}"
+            aria-labelledby="passwordShowModalLabel${id}"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="passwordShowModalLabel${entry.id}">
+                  <h1 class="modal-title fs-5" id="passwordShowModalLabel${id}">
                     Show Password
                   </h1>
                   <button
@@ -249,15 +242,15 @@ const renderHomePage = (state) => {
                 <div class="modal-body">
                   <div>
                     <span class="item-name">Source</span>
-                    <div class="item-value">${itemSource}</div>
+                    <div class="item-value">${service}</div>
                   </div>
                   <div>
                     <span class="item-name">Username</span>
-                    <div class="item-value">${itemUsername}</div>
+                    <div class="item-value">${login}</div>
                   </div>
                   <div>
                     <span class="item-name">Password</span>
-                    <div class="item-value">${itemPassword}</div>
+                    <div class="item-value">${password}</div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -280,26 +273,23 @@ const renderHomePage = (state) => {
   }
 };
 
-const createUser = async (newUser) => {
+const getCurrentUser = async () => {
   try {
-    const response = await axios.post('/api/users/', newUser);
+    const response = await axios.get('/api/users/current/');
     return response.data;
   } catch (err) {
-    if (err.toJSON().status == 422) {
-      alert('The same user already exsist');
-    }
+    alert(err.response.status);
   }
 };
 
+const createUser = async (newUser) => {
+  const response = await axios.post('/api/users/', newUser);
+  return response.data;
+};
+
 const loginUser = async (user) => {
-  try {
-    const response = await axios.post('api/sessions/', user);
-    return response.data;
-  } catch (err) {
-    if (err.toJSON().status == 422) {
-      alert('Incorrect username or password');
-    }
-  }
+  const response = await axios.post('api/sessions/', user);
+  return response.data;
 };
 
 const addNewEntry = async (newEntry) => {
@@ -307,48 +297,41 @@ const addNewEntry = async (newEntry) => {
     const response = await axios.post('/api/accounts/', newEntry);
     return response.data;
   } catch (err) {
-    if (err.toJSON().status == 401) {
+    if (err.response.status === 401) {
       alert('Sign in for add record');
     }
   }
 };
 
 const editUserAccount = async (newData) => {
-  try {
-    const response = await axios.put('/api/users/current/', newData);
-    return response;
-  } catch (err) {
-    if (err.toJSON().status == 401) {
-      alert('Sign in for edit account');
-    }
-  }
+  const response = await axios.put('/api/users/current/', newData);
+  return response;
 };
 
-const entryEdit = async (newData, accountId) => {
-  try {
-    const response = await axios.put(`/api/accounts/${accountId}`, newData);
-    return response.data;
-  } catch (err) {
-    alret(err.toJSON().status);
-  }
-};
+// const entryEdit = async (newData, accountId) => {
+//   try {
+//     const response = await axios.put(`/api/accounts/${accountId}`, newData);
+//     return response.data;
+//   } catch (err) {
+//     alert(err.response.status);
+//   }
+// };
 
-const entryDelete = async () => {
-  try {
-    const response = await axios.delete(`/api//accounts/${accountId}`);
-    return response.data;
-  } catch (err) {
-    alret(err.toJSON().status);
-  }
-};
+// const entryDelete = async () => {
+//   try {
+//     const response = await axios.delete(`/api//accounts/${accountId}`);
+//     return response.data;
+//   } catch (err) {
+//     alert(err.response.status);
+//   }
+// };
 
-const getAccounts = async (state) => {
+const getAccounts = async () => {
   try {
     const response = await axios.get('/api/accounts/');
-    state.accounts = response.data;
     return response.data;
   } catch (err) {
-    alret(err.toJSON().status);
+    alert(err.response.status);
   }
 };
 
@@ -373,9 +356,6 @@ const app = async () => {
     addNewEntry: document.querySelector('#addNewEntry'),
     editUserAccount: document.querySelector('#userModalForm'),
     exitButton: document.querySelector('#exitButton'),
-    // entryEdit: document.querySelectorAll('.some_modal_class'),
-    // entryDelete: document.querySelectorAll('.some_modal_class'),
-    // entryShow: document.querySelectorAll('.some_modal_class'),
     editLogin: document.querySelector('#editUserEmail'),
     editButton: document.querySelector('#header__user-button'),
   };
@@ -387,18 +367,27 @@ const app = async () => {
     const email = formData.get('email');
     const password = formData.get('password');
     const repeat_password = formData.get('repeat_password');
-    if (password === repeat_password) {
-      state.createUserForm.email = email;
-      state.createUserForm.password = password;
-      const addUserResp = await createUser({
-        login: email,
-        password: password,
-      });
-      const loginResp = await loginUser({ login: email, password: password });
-      state.currentUser = loginResp;
+    if (password !== repeat_password) {
+      alert("Passwords don't match");
+      return;
+    }
+    try {
+      const user = await createUser({ login: email, password });
+      state.currentUser = { ...user, isGuest: false };
+      form.reset();
+    } catch (err) {
+      const { errors } = err.response.data;
+      const errorMessages = [
+        errors.login || '',
+        errors.password || '',
+      ];
+      alert(errorMessages.join('\n'));
+    }
+    if (!state.currentUser.isGuest) {
+      const accounts = await getAccounts();
+      state.accounts = accounts;
     }
     renderHomePage(state);
-    console.log(state);
     form.reset();
   };
 
@@ -406,16 +395,22 @@ const app = async () => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const email = formData.get('email');
+    const login = formData.get('email');
     const password = formData.get('password');
-    state.loginUserForm.email = email;
+    state.loginUserForm.email = login;
     state.loginUserForm.password = password;
-    const loginResp = await loginUser({ login: email, password: password });
-    state.currentUser = loginResp;
-    const resp = await getAccounts(state);
-    console.log(state);
+    try {
+      const user = await loginUser({ login, password });
+      state.currentUser = { ...user, isGuest: false };
+      form.reset();
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+    if (!state.currentUser.isGuest) {
+      const accounts = await getAccounts();
+      state.accounts = accounts;
+    }
     renderHomePage(state);
-    form.reset();
   };
 
   const addEntryHandler = async (e) => {
@@ -423,92 +418,86 @@ const app = async () => {
     const form = e.target;
     const formData = new FormData(form);
     const service = formData.get('source');
-    const username = formData.get('username');
+    const login = formData.get('username');
     const password = formData.get('password');
     const repeat_password = formData.get('repeat_password');
-    if (password === repeat_password) {
-      const addNewEntryResp = await addNewEntry({
-        service: service,
-        login: username,
-        password: password,
-      });
-      state.accounts.push(addNewEntryResp);
-      renderHomePage(state);
-      console.log(state);
-      form.reset();
+    if (password !== repeat_password) {
+      alert("Passwords don't match");
+      return;
     }
+    const newAccount = await addNewEntry({
+      service,
+      login,
+      password,
+    });
+    state.accounts.push(newAccount);
+    renderHomePage(state);
+    form.reset();
   };
 
   const editUserAccountHandler = async (e) => {
     e.preventDefault();
-    const form = e.target; //placeholder = state.currentUser.login
-    // state.currentUser.login ;
-    // console.log(elements.editLogin.placeholder);
-    const formData = new FormData(form);
-    const newLogin = formData.get('email');
-    const newPasword = formData.get('password');
-    const repeat_password = formData.get('repeat_password');
-    if (newPasword === repeat_password) {
-      const editUserResp = await editUserAccount({
-        login: newLogin,
-        password: newPasword,
-      });
-      if (editUserResp) {
-        state.currentUser = { login: newLogin, password: newPasword };
-      }
-      renderHomePage(state);
-    }
-    console.log(state);
-    form.reset();
-  };
-
-  const editEntryHandler = async (e) => {
-    e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const service = formData.get('source');
-    const username = formData.get('username');
-    const password = formData.get('password');
-    const repeat_password = formData.get('repeat_password');
-    const accountId = e.target.someAthribute;
-    if (password === repeat_password) {
-      const addNewEntryResp = await entryEdit(
-        { service: service, login: username, password: password },
-        accountId
-      );
-      state.accounts.push(addNewEntryResp);
-      renderHomePage(state);
-      console.log(state);
+    const newLogin = formData.get('email');
+    const newPassword = formData.get('password');
+    const newData = {
+      ...(newLogin && { login: newLogin }),
+      ...(newPassword && { password: newPassword })
+    };
+    if (!Object.keys(newData).length) return;
+    try {
+      await editUserAccount(newData);
+      state.currentUser = { login: newLogin, password: newPassword, isGuest: false };
+      form.reset();
+    } catch (err) {
+      const { errors } = err.response.data;
+      const errorMessages = [
+        errors.login || '',
+        errors.password || '',
+      ];
+      alert(errorMessages.join('\n'));
     }
-  };
-
-  const entryDeleteHandler = async (e) => {
-    e.preventDefault();
-    const accountId = e.target.someAthribute;
-    const addNewEntryResp = await entryDelete(
-      { service: service, login: username, password: password },
-      accountId
-    );
-    const resp = await getAccounts(state);
     renderHomePage(state);
-    console.log(state);
   };
 
-  elements.createUserForm.addEventListener('submit', (e) =>
-    createUserHandler(e)
-  );
+  // const editEntryHandler = async (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const formData = new FormData(form);
+  //   const service = formData.get('source');
+  //   const username = formData.get('username');
+  //   const password = formData.get('password');
+  //   const repeat_password = formData.get('repeat_password');
+  //   const accountId = e.target.someAthribute;
+  //   if (password === repeat_password) {
+  //     const addNewEntryResp = await entryEdit(
+  //       { service: service, login: username, password: password },
+  //       accountId
+  //     );
+  //     state.accounts.push(addNewEntryResp);
+  //     renderHomePage(state);
+  //   }
+  // };
+
+  // const entryDeleteHandler = async (e) => {
+  //   e.preventDefault();
+  //   const accountId = e.target.someAthribute;
+  //   const addNewEntryResp = await entryDelete(
+  //     { service: service, login: username, password: password },
+  //     accountId
+  //   );
+  //   const resp = await getAccounts(state);
+  //   renderHomePage(state);
+  // };
+
+  elements.createUserForm.addEventListener('submit', (e) => createUserHandler(e));
   elements.loginUserForm.addEventListener('submit', (e) => loginUserHandler(e));
   elements.addNewEntry.addEventListener('submit', (e) => addEntryHandler(e));
-  elements.editUserAccount.addEventListener('submit', (e) =>
-    editUserAccountHandler(e)
-  );
+  elements.editUserAccount.addEventListener('submit', (e) => editUserAccountHandler(e));
   // elements.entryEdit.addEventListener('submit', (e) => editEntryHandler(e));
   // elements.entryDelete.addEventListener('click', (e) => entryDeleteHandler(e));
   // elements.entryShow.addEventListener('click', (e) => entryShowHandler(e));
-  elements.editButton.addEventListener('click', () => {
-    console.log(111);
-    elements.editLogin.value = state.currentUser.login;
-  });
   elements.exitButton.addEventListener('click', async () => {
     const response = await axios.delete('/api/sessions/');
     state.currentUser = { isGuest: true };
@@ -516,24 +505,14 @@ const app = async () => {
     return response.data;
   });
 
-  elements.entryEdit.addEventListener('submit', (e) => editEntryHandler(e));
+  const currentUser = await getCurrentUser();
+  state.currentUser = currentUser;
 
-  const getCurrentUser = async (state) => {
-    try {
-      const response = await axios.get('/api/users/current/');
-      state.currentUser = response.data;
-      renderHomePage(state);
-      console.log(state);
-    } catch (err) {
-      alret(err.toJSON().status);
-    }
-  };
-  getCurrentUser(state);
   if (state.currentUser.isGuest === false) {
-    const resp = await getAccounts(state);
-    renderHomePage(state);
-  }
-  console.log(state);
+    const accounts = await getAccounts();
+    state.accounts = accounts;
+    }
+  renderHomePage(state);
 };
 
-export { app, renderHomePage, state };
+export default app;
