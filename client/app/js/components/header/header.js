@@ -1,3 +1,7 @@
+import signinIcon from '#icons/signin-icon.svg';
+import logoIcon from '#icons/logo.svg';
+import exitIcon from '#icons/exit-icon.svg';
+
 export const Header = {
   tagName: 'header-component',
 
@@ -9,7 +13,9 @@ export const Header = {
     header.innerHTML = `
       <nav class="navbar navbar-expand-lg section">
         <div class="container-fluid">
-          <a id="header-logo" class="navbar-brand" href="/"></a>
+          <a id="header-logo" class="navbar-brand" href="/">
+            <img src="${logoIcon}" alt="logo icon" class="navbar-logo"></img>
+          </a>
           <button
             class="navbar-toggler mobile-menu-icon"
             type="button"
@@ -34,6 +40,7 @@ export const Header = {
                 data-bs-target="#exampleModalToggle"
                 data-bs-toggle="modal"
               >
+                <img src="${signinIcon}" class="button__icon" alt="Signin Icon"></img>
                 Sign in
               </button>
             
@@ -67,6 +74,7 @@ export const Header = {
               </div>
               </div>
               <button type="button" id="header__exit-button" class="button" data-bs-toggle="modal" data-bs-target="#exitModal">
+                <img src="${exitIcon}" class="button__icon" alt="Exit Icon"></img>
                 Exit
               </button>
               <div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
@@ -93,8 +101,6 @@ export const Header = {
     `;
     return header;
   },
-
-  init(header) {},
 
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);

@@ -1,3 +1,5 @@
+import newEntryIcon from '#icons/new-entry-icon.svg';
+
 export const NewEntrySection = {
   tagName: 'new-entry-section',
 
@@ -14,6 +16,7 @@ export const NewEntrySection = {
           data-bs-toggle="modal"
           data-bs-target="#passwordAddModal"
         >
+        <img src="${newEntryIcon}" alt="new entry icon" id="button__icon" class="button__icon"></img>
         Add New Entry
       </button>
       <div
@@ -109,8 +112,6 @@ export const NewEntrySection = {
     `;
     return newEntrySection;
   },
-
-  init(newEntrySection) {},
 
   getAll(container = document.body) {
     return container.getElementsByClassName(this.tagName);
