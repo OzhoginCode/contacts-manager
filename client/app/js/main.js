@@ -11,25 +11,25 @@ import newEntryIcon from '#icons/new-entry-icon.svg';
 import signinIcon from '#icons/signin-icon.svg';
 import exitIcon from '#icons/exit-icon.svg';
 
-import * as App from '#js/app.js';
+import app from '#js/app.js';
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = document.getElementById('app'); // change
+  const root = document.getElementById('root'); // change
 
   const header = Header.create();
   Header.init(header);
-  app.appendChild(header);
+  root.appendChild(header);
 
   const main = Main.create();
   Main.init(main);
-  app.appendChild(main);
+  root.appendChild(main);
 
   const footer = Footer.create();
   Footer.init(footer);
-  app.appendChild(footer);
+  root.appendChild(footer);
 });
 
 // svg
@@ -82,9 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
   signinHeroImg.className = 'button__icon';
   const signinButton = document.getElementById('hero-section__signin');
   signinButton.insertBefore(signinHeroImg, signinButton.firstChild);
+
+  app()
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  App.app();
-  App.renderHomePage(App.state);
-});
+// document.addEventListener('DOMContentLoaded', () => );
