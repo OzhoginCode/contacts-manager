@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import getEntryElement from '#js/components/main/entry-element.js';
+import generatePassword from '#js/utils/generatePassword.js';
 
 import userIcon from '#icons/user-icon.svg';
 
@@ -15,21 +16,25 @@ const renderHomePage = (state) => {
     const accountId = parseInt(form.dataset.editFormId);
     try {
       const newData = await entryEdit({ service, login, password }, accountId);
-      const index = state.accounts.findIndex((account) => account.id === accountId);
+      const index = state.accounts.findIndex(
+        (account) => account.id === accountId
+      );
       state.accounts[index] = { ...newData, id: accountId };
     } catch (err) {
       alert(err.response.data.error);
     }
     renderHomePage(state);
   };
-  
+
   const entryDeleteHandler = async (e) => {
     e.preventDefault();
     const accountId = parseInt(e.target.dataset.accountId);
     console.log(accountId);
     try {
       await entryDelete(accountId);
-      state.accounts = state.accounts.filter((account) => account.id !== accountId);
+      state.accounts = state.accounts.filter(
+        (account) => account.id !== accountId
+      );
     } catch (err) {
       console.log(err);
       alert(err.response.data.error);
@@ -79,14 +84,26 @@ const renderHomePage = (state) => {
     entryItem.id = `entry-item-${id}`;
     entryItem.className = 'entry-item section';
 
-    entryItem.innerHTML = getEntryElement(elemNumber, id, service, login, password);
+    entryItem.innerHTML = getEntryElement(
+      elemNumber,
+      id,
+      service,
+      login,
+      password
+    );
     entriesListSection.appendChild(entryItem);
   });
   const editForms = entriesListSection.querySelectorAll('.account-edit-form');
-  editForms.forEach((form) => form.addEventListener('submit', editEntryHandler));
+  editForms.forEach((form) =>
+    form.addEventListener('submit', editEntryHandler)
+  );
 
-  const deleteButtons = entriesListSection.querySelectorAll('.confirm-delete-account-button');
-  deleteButtons.forEach((btn) => btn.addEventListener('click', entryDeleteHandler));
+  const deleteButtons = entriesListSection.querySelectorAll(
+    '.confirm-delete-account-button'
+  );
+  deleteButtons.forEach((btn) =>
+    btn.addEventListener('click', entryDeleteHandler)
+  );
 };
 
 const getCurrentUser = async () => {
@@ -160,6 +177,9 @@ const app = async () => {
     exitButton: document.querySelector('#exitButton'),
     editLogin: document.querySelector('#editUserEmail'),
     editButton: document.querySelector('#header__user-button'),
+    generateButton: document.querySelector('#generate-password'),
+    newEntryPassword: document.querySelector('#newEntryPassword'),
+    newEntryPasswordRepeat: document.querySelector('#newEntryPasswordRepeat'),
   };
 
   const createUserHandler = async (e) => {
@@ -179,10 +199,7 @@ const app = async () => {
       form.reset();
     } catch (err) {
       const { errors } = err.response.data;
-      const errorMessages = [
-        errors.login || '',
-        errors.password || '',
-      ];
+      const errorMessages = [errors.login || '', errors.password || ''];
       alert(errorMessages.join('\n'));
     }
     if (!state.currentUser.isGuest) {
@@ -245,7 +262,7 @@ const app = async () => {
     const newPassword = formData.get('password');
     const newData = {
       ...(newLogin && { login: newLogin }),
-      ...(newPassword && { password: newPassword })
+      ...(newPassword && { password: newPassword }),
     };
     if (!Object.keys(newData).length) return;
     try {
@@ -254,10 +271,7 @@ const app = async () => {
       form.reset();
     } catch (err) {
       const { errors } = err.response.data;
-      const errorMessages = [
-        errors.login || '',
-        errors.password || '',
-      ];
+      const errorMessages = [errors.login || '', errors.password || ''];
       alert(errorMessages.join('\n'));
     }
     renderHomePage(state);
@@ -275,13 +289,20 @@ const app = async () => {
     return response.data;
   });
 
+  elements.generateButton.addEventListener('click', () => {
+    const password = generatePassword();
+    console.log(password);
+    elements.newEntryPassword.value = password;
+    elements.newEntryPasswordRepeat.value = password;
+  });
+
   const currentUser = await getCurrentUser();
   state.currentUser = currentUser;
 
   if (state.currentUser.isGuest === false) {
     const accounts = await getAccounts();
     state.accounts = accounts;
-    }
+  }
   renderHomePage(state);
 };
 

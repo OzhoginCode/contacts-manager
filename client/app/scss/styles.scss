@@ -35,8 +35,8 @@
   --bg-button-end-rgb: 31, 41, 55; /* gray-700 */
   --bg-button-purple-start: 67, 56, 107;
   --bg-button-purple-end: 191, 179, 235;
-  --bg-button-yellow-start: 255, 209, 0;
-  --bg-button-yellow-end: 255, 229, 115;
+  --bg-button-green-start: 153, 170, 187;
+  --bg-button-green-end: 125, 185, 33;
 
   --bg-button: linear-gradient(
     315deg,
@@ -66,6 +66,12 @@
     315deg,
     rgb(var(--bg-button-end-rgb)),
     rgb(var(--bg-button-start-rgb))
+  );
+
+  --bg-button-green: linear-gradient(
+    315deg,
+    rgb(var(--bg-button-green-start)),
+    rgb(var(--bg-button-green-end))
   );
 }
 
@@ -420,6 +426,10 @@ label::after {
   background: var(--bg-button-yellow);
 
   transition: var(--transition);
+}
+
+.button-green {
+  background: var(--bg-button-green);
 }
 
 .item-name {
