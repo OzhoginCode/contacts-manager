@@ -8,7 +8,7 @@ import {
 
 const usersRouter = express.Router();
 
-const validate = async (login, password) => {
+const validate = async (login, password, currentLogin = null) => {
   const errors = {};
   if (!login) {
     errors.login = 'Логин не может пустым';
@@ -19,7 +19,7 @@ const validate = async (login, password) => {
   }
 
   const alreadyExists = await getUserByLogin(login);
-  if (alreadyExists) {
+  if (alreadyExists && login !== currentLogin) {
     errors.login = 'Этот логин уже занят';
   }
   return errors;
@@ -62,7 +62,7 @@ usersRouter.put('/current', requiredAuth, validateSession, async (req, res) => {
     ? encrypt(newData.password)
     : user.password_digest;
 
-  const errors = await validate(login, passwordDigest);
+  const errors = await validate(login, passwordDigest, user.login);
   if (Object.keys(errors).length) {
     res.status(422);
     res.send({ form: { login, password: newData.password }, errors });
